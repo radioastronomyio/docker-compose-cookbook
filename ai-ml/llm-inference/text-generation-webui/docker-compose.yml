@@ -1,0 +1,32 @@
+# Text Generation WebUI (Oobabooga) - Research LLM Interface
+# https://github.com/oobabooga/text-generation-webui
+
+services:
+  text-generation-webui:
+    image: ghcr.io/oobabooga/text-generation-webui:latest
+    container_name: text-generation-webui
+    restart: unless-stopped
+    # Critical for PyTorch dataloaders - default 64MB is insufficient
+    shm_size: 16gb
+    ports:
+      - "${WEBUI_PORT:-7860}:7860"  # Web UI
+      - "${API_PORT:-5000}:5000"     # API
+    volumes:
+      - ./textgen-data:/app/data
+      - ./textgen-models:/app/models
+    environment:
+      # CLI arguments: listen, API, xformers for memory efficiency
+      - CLI_ARGS=${CLI_ARGS:---listen --api --xformers --n-gpu-layers 128}
+      - NVIDIA_VISIBLE_DEVICES=${NVIDIA_VISIBLE_DEVICES:-all}
+      - CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  default:
+    name: textgen_network

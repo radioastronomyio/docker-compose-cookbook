@@ -1,0 +1,20 @@
+services:
+  invokeai:
+    image: ghcr.io/invoke-ai/invokeai:latest
+    container_name: invokeai
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./invokeai_root:/invokeai
+    environment:
+      - INVOKEAI_ROOT=/invokeai
+      - GPU_DRIVER=${GPU_DRIVER:-cuda}
+      - HUGGINGFACE_TOKEN=${HUGGINGFACE_TOKEN:-}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

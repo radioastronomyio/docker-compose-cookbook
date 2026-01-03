@@ -1,0 +1,28 @@
+services:
+  anythingllm:
+    image: mintplexlabs/anythingllm:master
+    container_name: anythingllm
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - anythingllm_storage:/app/server/storage
+      - ./.env:/app/server/.env
+    environment:
+      - STORAGE_DIR=/app/server/storage
+      - SERVER_PORT=${SERVER_PORT:-3001}
+      - JWT_SECRET=${JWT_SECRET:?JWT_SECRET is required}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  anythingllm_storage:

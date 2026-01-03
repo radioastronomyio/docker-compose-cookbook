@@ -1,0 +1,15 @@
+services:
+  flowise:
+    image: flowiseai/flowise:latest
+    container_name: flowise
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./flowise_data:/root/.flowise
+    environment:
+      - PORT=3000
+      - FLOWISE_USERNAME=${FLOWISE_USERNAME:-admin}
+      - FLOWISE_PASSWORD=${FLOWISE_PASSWORD:-password}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

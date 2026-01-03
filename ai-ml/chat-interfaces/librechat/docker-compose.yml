@@ -1,0 +1,33 @@
+services:
+  librechat:
+    image: ghcr.io/danny-avila/librechat-dev:latest
+    container_name: librechat
+    restart: unless-stopped
+    ports:
+      - "3080:3080"
+    depends_on:
+      - mongodb
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml
+      - ./images:/app/client/public/images
+      - ./logs:/app/api/logs
+    environment:
+      - HOST=0.0.0.0
+      - MONGO_URI=mongodb://mongodb:27017/LibreChat
+      - ENDPOINTS=${ENDPOINTS:-custom}
+      - CREDS_KEY=${CREDS_KEY:?CREDS_KEY is required}
+      - CREDS_IV=${CREDS_IV:?CREDS_IV is required}
+      - JWT_SECRET=${JWT_SECRET:?JWT_SECRET is required}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mongodb:
+    image: mongo:latest
+    container_name: librechat-mongodb
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    command: mongod --noauth
+
+volumes:
+  mongo_data:

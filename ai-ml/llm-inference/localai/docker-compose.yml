@@ -1,0 +1,35 @@
+# LocalAI - OpenAI API Drop-in Replacement
+# https://localai.io/
+
+services:
+  local-ai:
+    image: localai/localai:latest-aio-gpu-nvidia-cuda-12
+    container_name: local-ai
+    restart: unless-stopped
+    ports:
+      - "${LOCALAI_PORT:-8080}:8080"
+    environment:
+      - MODELS_PATH=/build/models
+      # CPU threads (set to physical cores to prevent context switching)
+      - THREADS=${THREADS:-8}
+      - CONTEXT_SIZE=${CONTEXT_SIZE:-4096}
+      # GPU acceleration
+      - GPU_ACCELERATION=${GPU_ACCELERATION:-true}
+      # Optional API key
+      - API_KEY=${API_KEY:-}
+      # Debug logging
+      - DEBUG=${DEBUG:-false}
+    volumes:
+      - ./localai_models:/build/models
+      - ./localai_images:/build/images
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  default:
+    name: localai_network
