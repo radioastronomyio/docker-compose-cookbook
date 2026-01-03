@@ -33,7 +33,7 @@ This cookbook provides copy-and-deploy Docker Compose configurations for common 
 
 ## 🔭 Background
 
-![Docker Compose Cookbook Categories](assets/cookbook-categories.png)
+![alt text](assets/docker-compose-cookbook-primary-infographic.jpg)
 
 Self-hosting services requires researching Docker configurations, understanding environment variables, and troubleshooting deployment issues. This friction slows adoption and leads to inconsistent setups across environments.
 
