@@ -1,0 +1,19 @@
+services:
+  fooocus:
+    image: ghcr.io/lllyasviel/fooocus:latest
+    container_name: fooocus
+    restart: unless-stopped
+    ports:
+      - "7865:7865"
+    volumes:
+      - ./fooocus-data:/content/data
+    environment:
+      - CMD_ARGS=${CMD_ARGS:---listen}
+      - DATADIR=${DATADIR:-/content/data}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

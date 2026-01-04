@@ -1,0 +1,57 @@
+# Nginx Proxy Manager - Reverse Proxy with SSL
+# https://nginxproxymanager.com/
+
+services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - "${NPM_HTTP_PORT:-80}:80"
+      - "${NPM_ADMIN_PORT:-81}:81"
+      - "${NPM_HTTPS_PORT:-443}:443"
+    environment:
+      DB_MYSQL_HOST: npm-db
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: npm
+      DB_MYSQL_PASSWORD: ${NPM_DB_PASS}
+      DB_MYSQL_NAME: npm
+    volumes:
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
+    depends_on:
+      npm-db:
+        condition: service_healthy
+    networks:
+      - proxy_net
+      - internal
+
+  npm-db:
+    image: jc21/mariadb-aria:latest
+    container_name: npm-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${NPM_ROOT_PASS}
+      MYSQL_DATABASE: npm
+      MYSQL_USER: npm
+      MYSQL_PASSWORD: ${NPM_DB_PASS}
+    volumes:
+      - npm_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+
+volumes:
+  npm_data:
+  npm_letsencrypt:
+  npm_mysql:
+
+networks:
+  proxy_net:
+    name: proxy_net
+  internal:
+    internal: true

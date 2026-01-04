@@ -1,0 +1,74 @@
+# Twenty - Open Source CRM
+# https://twenty.com/
+
+services:
+  server:
+    image: twentycrm/twenty:latest
+    container_name: twenty-server
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "${TWENTY_PORT:-3000}:3000"
+    environment:
+      PG_DATABASE_URL: postgres://twenty:${PG_PASSWORD}@db:5432/twenty
+      SERVER_URL: ${SERVER_URL:-http://localhost:3000}
+      FRONT_BASE_URL: ${SERVER_URL:-http://localhost:3000}
+      APP_SECRET: ${APP_SECRET}
+      STORAGE_TYPE: local
+      STORAGE_LOCAL_PATH: .local-storage
+    volumes:
+      - server-local-data:/app/packages/twenty-server/.local-storage
+    restart: unless-stopped
+
+  worker:
+    image: twentycrm/twenty:latest
+    container_name: twenty-worker
+    command: ["yarn", "worker:prod"]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      PG_DATABASE_URL: postgres://twenty:${PG_PASSWORD}@db:5432/twenty
+      SERVER_URL: ${SERVER_URL:-http://localhost:3000}
+      FRONT_BASE_URL: ${SERVER_URL:-http://localhost:3000}
+      APP_SECRET: ${APP_SECRET}
+      STORAGE_TYPE: local
+      STORAGE_LOCAL_PATH: .local-storage
+    volumes:
+      - server-local-data:/app/packages/twenty-server/.local-storage
+    restart: unless-stopped
+
+  db:
+    image: postgres:16
+    container_name: twenty-db
+    environment:
+      POSTGRES_USER: twenty
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: twenty
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U twenty -d twenty"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: twenty-redis
+    command: redis-server --maxmemory-policy noeviction
+    restart: unless-stopped
+
+volumes:
+  server-local-data:
+  db-data:
+
+networks:
+  default:
+    name: twenty_network

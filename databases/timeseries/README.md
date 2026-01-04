@@ -3,8 +3,8 @@
 title: "Time Series Databases"
 description: "Databases optimized for time-stamped data and metrics"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,9 +23,9 @@ Databases optimized for storing and querying time-stamped data. These databases 
 
 ```
 timeseries/
-├── influxdb/           # InfluxDB time series database
-├── questdb/            # QuestDB (planned)
-└── README.md           # This file
+├── influxdb/     # InfluxDB time series database
+├── questdb/      # QuestDB high-performance TSDB
+└── README.md     # This file
 ```
 
 ---
@@ -35,11 +35,15 @@ timeseries/
 | Recipe | Description | Status |
 |--------|-------------|--------|
 | [influxdb/](influxdb/README.md) | InfluxDB - purpose-built time series database | ✅ Active |
-| [questdb/](questdb/) | QuestDB - high-performance SQL time series | 📋 Planned |
+| [questdb/](questdb/README.md) | QuestDB - high-performance SQL time series | ✅ Active |
 
 ---
 
-## 3. Use Cases
+## 3. Recipe Count: 2
+
+---
+
+## 4. Selection Guide
 
 | Database | Best For |
 |----------|----------|
@@ -48,9 +52,21 @@ timeseries/
 
 ---
 
-## 4. Related
+## 5. Comparison
+
+| Feature | InfluxDB | QuestDB |
+|---------|----------|---------|
+| Query language | Flux / InfluxQL | PostgreSQL-compatible SQL |
+| Ingestion speed | High | Very High |
+| Grafana integration | Native | Native |
+| Learning curve | Medium | Low (SQL) |
+
+---
+
+## 6. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [databases/](../README.md) | Parent category |
-| [monitoring-logging/](../../monitoring-logging/README.md) | Often paired with Grafana |
+| [monitoring-logging/](../../monitoring-logging/README.md) | Grafana visualization |
+| [monitoring-logging/Prometheus/](../../monitoring-logging/Prometheus/README.md) | Alternative metrics storage |

@@ -1,0 +1,23 @@
+# FileBrowser - Web-Based File Manager
+# https://filebrowser.org/
+
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+    volumes:
+      # Directory to browse/manage
+      - ${FILE_ROOT:-/srv}:/srv
+      # Database and configuration
+      - ./filebrowser.db:/database/filebrowser.db
+      - ./settings.json:/config/settings.json
+    ports:
+      - "${FILEBROWSER_PORT:-8080}:80"
+
+networks:
+  default:
+    name: filebrowser_network

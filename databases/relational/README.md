@@ -3,8 +3,8 @@
 title: "Relational Databases"
 description: "SQL-based relational database management systems"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,11 +23,11 @@ SQL-based relational database management systems. These databases use structured
 
 ```
 relational/
-├── mysql/              # MySQL Server
-├── mariadb/            # MariaDB (MySQL fork)
-├── sqlite3/            # SQLite embedded database
-├── postgresql/         # PostgreSQL (planned)
-└── README.md           # This file
+├── mysql/        # MySQL Server
+├── mariadb/      # MariaDB (MySQL fork)
+├── postgresql/   # PostgreSQL
+├── sqlite3/      # SQLite embedded database
+└── README.md     # This file
 ```
 
 ---
@@ -38,23 +38,39 @@ relational/
 |--------|-------------|--------|
 | [mysql/](mysql/README.md) | MySQL Server - widely used open-source RDBMS | ✅ Active |
 | [mariadb/](mariadb/README.md) | MariaDB - community-developed MySQL fork | ✅ Active |
+| [postgresql/](postgresql/README.md) | PostgreSQL - advanced open-source RDBMS | ✅ Active |
 | [sqlite3/](sqlite3/README.md) | SQLite - lightweight serverless database | ✅ Active |
-| [postgresql/](postgresql/) | PostgreSQL - advanced open-source RDBMS | 📋 Planned |
 
 ---
 
-## 3. Use Cases
+## 3. Recipe Count: 4
+
+---
+
+## 4. Selection Guide
 
 | Database | Best For |
 |----------|----------|
 | MySQL | Web applications, WordPress, general purpose |
 | MariaDB | MySQL replacement with enhanced features |
-| SQLite | Embedded applications, development, testing |
 | PostgreSQL | Complex queries, PostGIS, pgvector, enterprise |
+| SQLite | Embedded applications, development, testing |
 
 ---
 
-## 4. Related
+## 5. Comparison
+
+| Feature | MySQL | MariaDB | PostgreSQL | SQLite |
+|---------|-------|---------|------------|--------|
+| Concurrency | Good | Good | Excellent | Limited |
+| JSON support | ✅ | ✅ | ✅ Native | ✅ |
+| Full-text search | ✅ | ✅ | ✅ | Extension |
+| Spatial (GIS) | ✅ | ✅ | PostGIS | ❌ |
+| Resource usage | Medium | Medium | Medium | Minimal |
+
+---
+
+## 6. Related
 
 | Document | Relationship |
 |----------|--------------|

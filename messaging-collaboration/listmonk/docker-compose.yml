@@ -1,0 +1,30 @@
+services:
+  listmonk:
+    image: listmonk/listmonk:latest
+    container_name: listmonk
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      - LISTMONK_app__address=0.0.0.0:9000
+      - LISTMONK_db__host=listmonk_db
+      - LISTMONK_db__user=listmonk
+      - LISTMONK_db__password=${DB_PASS}
+      - LISTMONK_db__database=listmonk
+    depends_on:
+      - listmonk_db
+    command: [sh, -c, "./listmonk --install --idempotent && ./listmonk"]
+
+  listmonk_db:
+    image: postgres:13
+    container_name: listmonk_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=listmonk
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=listmonk
+    volumes:
+      - listmonk_db_data:/var/lib/postgresql/data
+
+volumes:
+  listmonk_db_data:

@@ -1,0 +1,50 @@
+# Label Studio - Universal Data Annotation Platform
+# https://labelstud.io/
+
+services:
+  label-studio:
+    image: heartexlabs/label-studio:latest
+    container_name: label-studio
+    restart: unless-stopped
+    ports:
+      - "${LABEL_STUDIO_PORT:-8080}:8080"
+    environment:
+      - DJANGO_DB=default
+      - POSTGRE_NAME=postgres
+      - POSTGRE_USER=postgres
+      - POSTGRE_PASSWORD=${PG_PASSWORD}
+      - POSTGRE_PORT=5432
+      - POSTGRE_HOST=db
+      # External URL for ML backend callbacks
+      - LABEL_STUDIO_HOST=${LABEL_STUDIO_HOST:-http://localhost:8080}
+      # SSRF protection (disable if using internal S3/MinIO)
+      - SSRF_PROTECTION_ENABLED=${SSRF_PROTECTION:-true}
+    volumes:
+      - labelstudio_data:/label-studio/data
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:14-alpine
+    container_name: label-studio-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  labelstudio_data:
+  postgres_data:
+
+networks:
+  default:
+    name: labelstudio_network

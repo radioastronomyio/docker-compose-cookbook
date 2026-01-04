@@ -3,8 +3,8 @@
 title: "Wide-Column Stores"
 description: "Distributed databases optimized for large-scale columnar data"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,8 +23,8 @@ Distributed databases that store data in column families, optimized for large-sc
 
 ```
 wide-column/
-├── cassandra/          # Apache Cassandra
-└── README.md           # This file
+├── cassandra/    # Apache Cassandra
+└── README.md     # This file
 ```
 
 ---
@@ -37,16 +37,35 @@ wide-column/
 
 ---
 
-## 3. Use Cases
-
-| Database | Best For |
-|----------|----------|
-| Cassandra | Time series at scale, IoT, messaging, distributed workloads requiring high availability |
+## 3. Recipe Count: 1
 
 ---
 
-## 4. Related
+## 4. Use Cases
+
+| Use Case | Why Cassandra? |
+|----------|----------------|
+| Time series at scale | Optimized for write-heavy workloads |
+| IoT data | Handles high-velocity sensor data |
+| Messaging | Distributed, always-on architecture |
+| Multi-datacenter | Built-in replication across regions |
+
+---
+
+## 5. Architecture Notes
+
+Cassandra uses a peer-to-peer architecture with no single point of failure:
+
+- **Partitioning**: Data distributed across nodes via consistent hashing
+- **Replication**: Configurable replication factor per keyspace
+- **Consistency**: Tunable consistency levels per query
+- **CQL**: SQL-like query language
+
+---
+
+## 6. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [databases/](../README.md) | Parent category |
+| [timeseries/](../timeseries/README.md) | Alternative for time series |

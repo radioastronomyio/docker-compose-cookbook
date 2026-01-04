@@ -1,0 +1,15 @@
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    restart: unless-stopped
+    command: serve
+    environment:
+      - NTFY_BASE_URL=http://localhost:8090
+      - NTFY_CACHE_FILE=/var/cache/ntfy/cache.db
+      - NTFY_AUTH_DEFAULT_ACCESS=deny-all
+    volumes:
+      - ./ntfy_cache:/var/cache/ntfy
+      - ./ntfy_config:/etc/ntfy
+    ports:
+      - "8090:80"

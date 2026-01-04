@@ -1,0 +1,50 @@
+# Postiz - Social Media Automation
+# https://postiz.com/
+
+services:
+  postiz:
+    image: ghcr.io/gitroomhq/postiz-app:latest
+    container_name: postiz
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "${POSTIZ_PORT:-5000}:5000"
+    environment:
+      DATABASE_URL: postgresql://postiz:${PG_PASSWORD}@db:5432/postiz
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5000}
+      BACKEND_INTERNAL_URL: http://localhost:3000
+      NEXT_PUBLIC_BACKEND_URL: ${FRONTEND_URL:-http://localhost:5000}/api
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    container_name: postiz-db
+    environment:
+      POSTGRES_USER: postiz
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: postiz
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postiz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: postiz-redis
+    restart: unless-stopped
+
+volumes:
+  db-data:
+
+networks:
+  default:
+    name: postiz_network

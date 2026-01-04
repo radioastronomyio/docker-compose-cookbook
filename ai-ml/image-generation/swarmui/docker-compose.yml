@@ -1,0 +1,20 @@
+services:
+  swarmui:
+    image: ghcr.io/mcmonkeyprojects/swarmui:latest
+    container_name: swarmui
+    restart: unless-stopped
+    ports:
+      - "7801:7801"
+    volumes:
+      - ./swarm_data:/Data
+      - ./swarm_models:/Models
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA:-true}
+      - SWARM_NO_AUTO_INSTALL=${SWARM_NO_AUTO_INSTALL:-false}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

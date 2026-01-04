@@ -1,0 +1,35 @@
+# OpenHands - Autonomous Software Engineering Agent
+# https://github.com/OpenHands/OpenHands
+
+services:
+  openhands:
+    image: docker.all-hands.dev/all-hands-ai/openhands:0.28
+    container_name: openhands
+    restart: unless-stopped
+    ports:
+      - "${OPENHANDS_PORT:-3000}:3000"
+    environment:
+      # Sandbox runtime for code execution
+      - SANDBOX_RUNTIME_CONTAINER_IMAGE=docker.all-hands.dev/all-hands-ai/runtime:0.28-nikolaik
+      - LOG_ALL_EVENTS=${LOG_ALL_EVENTS:-true}
+      # Workspace mount path inside container
+      - WORKSPACE_MOUNT_PATH=/opt/workspace_base
+      # Connect to local Ollama
+      - LLM_BASE_URL=http://host.docker.internal:${OLLAMA_PORT:-11434}
+      # Match host user ID to prevent permission issues
+      - SANDBOX_USER_ID=${SANDBOX_USER_ID:-1000}
+    volumes:
+      # SECURITY: Docker socket access grants root-equivalent privileges
+      - /var/run/docker.sock:/var/run/docker.sock
+      - openhands_state:/.openhands-state
+      # Mount local directory for code generation
+      - ${WORKSPACE_BASE:-./workspace}:/opt/workspace_base
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  openhands_state:
+
+networks:
+  default:
+    name: openhands_network

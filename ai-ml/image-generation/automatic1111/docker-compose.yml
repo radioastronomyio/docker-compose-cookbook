@@ -1,0 +1,21 @@
+services:
+  auto1111:
+    image: universalllamas/automatic1111:latest
+    container_name: auto1111
+    restart: unless-stopped
+    ports:
+      - "7860:7860"
+    volumes:
+      - ./sd-data:/data
+      - ./sd-outputs:/app/stable-diffusion-webui/outputs
+      - ./sd-models:/app/stable-diffusion-webui/models
+    environment:
+      - CLI_ARGS=${CLI_ARGS:---listen --enable-insecure-extension-access --xformers --api}
+      - PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-garbage_collection_threshold:0.6,max_split_size_mb:128}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

@@ -1,0 +1,19 @@
+# Beszel - Lightweight Metrics Hub
+# https://github.com/henrygd/beszel
+
+services:
+  beszel:
+    image: henrygd/beszel
+    container_name: beszel
+    restart: unless-stopped
+    ports:
+      - "${BESZEL_PORT:-8090}:8090"
+    volumes:
+      - beszel_data:/beszel_data
+
+volumes:
+  beszel_data:
+
+networks:
+  default:
+    name: beszel_network

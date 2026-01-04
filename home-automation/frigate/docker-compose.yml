@@ -1,0 +1,24 @@
+services:
+  frigate:
+    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt
+    container_name: frigate
+    restart: unless-stopped
+    privileged: true
+    shm_size: "256mb"
+    ports:
+      - "5000:5000"   # Web UI
+      - "8554:8554"   # RTSP restream
+      - "8555:8555"   # WebRTC
+    volumes:
+      - ./config:/config
+      - ./storage:/media/frigate
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - FRIGATE_RTSP_PASSWORD=${RTSP_PASSWORD:-password}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

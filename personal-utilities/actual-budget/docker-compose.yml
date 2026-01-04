@@ -1,0 +1,19 @@
+# Actual Budget - Local-First Personal Finance
+# https://actualbudget.org/
+
+services:
+  actual-server:
+    image: actualbudget/actual-server:latest
+    container_name: actual-budget
+    restart: unless-stopped
+    ports:
+      - "${ACTUAL_PORT:-5006}:5006"
+    volumes:
+      - actual-data:/data
+
+volumes:
+  actual-data:
+
+networks:
+  default:
+    name: actual_network

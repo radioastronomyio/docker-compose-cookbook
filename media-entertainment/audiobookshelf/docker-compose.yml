@@ -1,0 +1,21 @@
+# Audiobookshelf - Audiobook & Podcast Server
+# https://www.audiobookshelf.org/
+
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    restart: unless-stopped
+    ports:
+      - "${AUDIOBOOKSHELF_PORT:-13378}:80"
+    volumes:
+      - ${AUDIOBOOKS_PATH:-./audiobooks}:/audiobooks
+      - ${PODCASTS_PATH:-./podcasts}:/podcasts
+      - ./config:/config
+      - ./metadata:/metadata
+    environment:
+      - TZ=${TZ:-America/New_York}
+
+networks:
+  default:
+    name: audiobookshelf_network

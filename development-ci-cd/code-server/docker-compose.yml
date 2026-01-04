@@ -1,0 +1,15 @@
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - PASSWORD=${CODE_PASSWORD}
+    volumes:
+      - ./code_config:/config
+      - /home/user/docker:/home/coder/project  # Customize project path
+    ports:
+      - "8443:8443"

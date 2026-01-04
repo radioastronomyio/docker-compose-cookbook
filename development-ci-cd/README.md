@@ -1,10 +1,10 @@
 <!--
 ---
 title: "Development & CI/CD"
-description: "Git servers, continuous integration, and development tools"
+description: "Git servers, CI/CD pipelines, and development tools"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -14,7 +14,7 @@ tags:
 
 # Development & CI/CD
 
-Docker Compose recipes for self-hosted Git servers, continuous integration pipelines, and development tools.
+Docker Compose recipes for Git servers, CI/CD pipelines, and development environments.
 
 ---
 
@@ -22,61 +22,79 @@ Docker Compose recipes for self-hosted Git servers, continuous integration pipel
 
 ```
 development-ci-cd/
-├── gitea-mysql/            # Gitea with MySQL
-├── gitea-postgresql/       # Gitea with PostgreSQL
-├── gitea-sqlite3/          # Gitea with SQLite
-├── gitlabce/               # GitLab Community Edition
-├── gogs-mysql/             # Gogs with MySQL
-├── gogs-postgres/          # Gogs with PostgreSQL
-├── gogs-sqlite3/           # Gogs with SQLite
-├── jenkins-sqlite3/        # Jenkins CI server
-└── README.md               # This file
+├── code-server/        # VS Code in the browser
+├── gitea-mysql/        # Gitea with MySQL
+├── gitea-postgresql/   # Gitea with PostgreSQL
+├── gitea-sqlite3/      # Gitea with SQLite
+├── gitlabce/           # GitLab Community Edition
+├── gogs-mysql/         # Gogs with MySQL
+├── gogs-postgres/      # Gogs with PostgreSQL
+├── gogs-sqlite3/       # Gogs with SQLite
+├── jenkins-sqlite3/    # Jenkins CI
+└── README.md           # This file
 ```
 
 ---
 
 ## 2. Recipes
 
-| Recipe | Description | Status |
-|--------|-------------|--------|
-| [gitea-mysql/](gitea-mysql/README.md) | Gitea with MySQL backend | ✅ Active |
-| [gitea-postgresql/](gitea-postgresql/README.md) | Gitea with PostgreSQL backend | ✅ Active |
-| [gitea-sqlite3/](gitea-sqlite3/README.md) | Gitea with SQLite (lightweight) | ✅ Active |
-| [gitlabce/](gitlabce/README.md) | GitLab CE - full DevOps platform | ✅ Active |
-| [gogs-mysql/](gogs-mysql/README.md) | Gogs with MySQL backend | ✅ Active |
-| [gogs-postgres/](gogs-postgres/README.md) | Gogs with PostgreSQL backend | ✅ Active |
-| [gogs-sqlite3/](gogs-sqlite3/README.md) | Gogs with SQLite (minimal) | ✅ Active |
-| [jenkins-sqlite3/](jenkins-sqlite3/README.md) | Jenkins automation server | ✅ Active |
+| Recipe | Description | Use Case |
+|--------|-------------|----------|
+| [code-server](code-server/README.md) | VS Code in the browser | Remote development |
+| [gitea-mysql](gitea-mysql/README.md) | Gitea with MySQL backend | Production Git server |
+| [gitea-postgresql](gitea-postgresql/README.md) | Gitea with PostgreSQL backend | Production Git server |
+| [gitea-sqlite3](gitea-sqlite3/README.md) | Gitea with SQLite backend | Lightweight Git server |
+| [gitlabce](gitlabce/README.md) | GitLab Community Edition | Full DevOps platform |
+| [gogs-mysql](gogs-mysql/README.md) | Gogs with MySQL backend | Minimal Git server |
+| [gogs-postgres](gogs-postgres/README.md) | Gogs with PostgreSQL backend | Minimal Git server |
+| [gogs-sqlite3](gogs-sqlite3/README.md) | Gogs with SQLite backend | Minimal Git server |
+| [jenkins-sqlite3](jenkins-sqlite3/README.md) | Jenkins CI server | Build automation |
 
 ---
 
-## 3. Comparison
-
-| Tool | Resources | Features | Best For |
-|------|-----------|----------|----------|
-| Gogs | Minimal | Git hosting | Simple, low-resource environments |
-| Gitea | Low | Git + issues + wiki | Small teams, Gogs replacement |
-| GitLab CE | High | Full DevOps suite | Enterprise, all-in-one platform |
-| Jenkins | Medium | CI/CD pipelines | Complex build automation |
+## 3. Recipe Count: 9
 
 ---
 
-## 4. Database Variants
+## 4. Quick Reference
 
-Most Git servers support multiple databases. Choose based on your needs:
-
-| Database | Use Case |
-|----------|----------|
-| SQLite | Development, single-user, low-traffic |
-| MySQL/MariaDB | Production with existing MySQL infrastructure |
-| PostgreSQL | Production with advanced query needs |
+| Need | Recommended |
+|------|-------------|
+| Lightweight Git server | Gitea (SQLite) or Gogs |
+| Production Git server | Gitea (PostgreSQL) |
+| Full DevOps platform | GitLab CE |
+| CI/CD pipelines | Jenkins or GitLab CI |
+| Remote development | Code-Server |
 
 ---
 
-## 5. Related
+## 5. Git Server Comparison
+
+| Feature | Gitea | Gogs | GitLab CE |
+|---------|-------|------|-----------|
+| Resource usage | Low | Very Low | High |
+| Built-in CI/CD | Actions (beta) | ❌ | ✅ Full |
+| Container registry | ✅ | ❌ | ✅ |
+| Issue tracking | ✅ | ✅ | ✅ |
+| Wiki | ✅ | ✅ | ✅ |
+| Learning curve | Low | Low | Medium |
+
+---
+
+## 6. Database Backend Selection
+
+| Backend | Best For |
+|---------|----------|
+| SQLite | Single user, low traffic, testing |
+| MySQL/MariaDB | Existing MySQL infrastructure |
+| PostgreSQL | Production, advanced features |
+
+---
+
+## 7. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [Repository Root](../README.md) | Parent directory |
-| [automation-orchestration/](../automation-orchestration/README.md) | Infrastructure automation |
-| [container-management/](../container-management/README.md) | Container deployment tools |
+| [container-management/](../container-management/README.md) | Container orchestration |
+| [automation-orchestration/](../automation-orchestration/README.md) | Workflow automation |

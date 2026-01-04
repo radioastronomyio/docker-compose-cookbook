@@ -1,0 +1,14 @@
+services:
+  baserow:
+    image: baserow/baserow:1.20.2
+    container_name: baserow
+    restart: unless-stopped
+    environment:
+      - BASEROW_PUBLIC_URL=${BASEROW_PUBLIC_URL}
+    ports:
+      - "3001:80"
+    volumes:
+      - baserow_data:/baserow/data
+
+volumes:
+  baserow_data:

@@ -1,0 +1,16 @@
+services:
+  faster-whisper:
+    image: fedirz/faster-whisper-server:latest-cuda
+    container_name: faster-whisper
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./whisper-cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

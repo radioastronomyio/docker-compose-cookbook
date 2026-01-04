@@ -1,0 +1,16 @@
+services:
+  private-gpt:
+    image: zylon/private-gpt:latest
+    container_name: private-gpt
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - PORT=${PORT:-8001}
+      - PGPT_PROFILES=${PGPT_PROFILES:-ollama}
+      - PGPT_OLLAMA_API_BASE=${PGPT_OLLAMA_API_BASE:-http://host.docker.internal:11434}
+      - PGPT_EMBEDDING_MODEL_NAME=${PGPT_EMBEDDING_MODEL_NAME:-nomic-embed-text}
+    volumes:
+      - ./local_data:/app/local_data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -1,0 +1,36 @@
+# Ollama - Local LLM Inference Engine
+# https://ollama.com/
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama_storage:/root/.ollama
+    environment:
+      - OLLAMA_HOST=${OLLAMA_HOST:-0.0.0.0}
+      # Keep models loaded in VRAM for instant response (default: 5m)
+      - OLLAMA_KEEP_ALIVE=${OLLAMA_KEEP_ALIVE:-24h}
+      # Parallel request handling (adjust based on VRAM)
+      - OLLAMA_NUM_PARALLEL=${OLLAMA_NUM_PARALLEL:-2}
+      # Debug logging
+      - OLLAMA_DEBUG=${OLLAMA_DEBUG:-false}
+      # Flash attention (enable if supported)
+      - OLLAMA_FLASH_ATTENTION=${OLLAMA_FLASH_ATTENTION:-0}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  ollama_storage:
+
+networks:
+  default:
+    name: ollama_network

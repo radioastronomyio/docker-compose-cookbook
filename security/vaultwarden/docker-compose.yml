@@ -1,0 +1,28 @@
+# Vaultwarden - Bitwarden-Compatible Password Manager
+# https://github.com/dani-garcia/vaultwarden
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    environment:
+      # WebSocket for real-time sync
+      - WEBSOCKET_ENABLED=true
+      # Disable after initial user creation for security
+      - SIGNUPS_ALLOWED=${SIGNUPS_ALLOWED:-true}
+      # Admin panel (optional, set token to enable)
+      - ADMIN_TOKEN=${ADMIN_TOKEN:-}
+      # Domain for email links
+      - DOMAIN=${DOMAIN:-http://localhost:8085}
+    volumes:
+      - vw-data:/data
+    ports:
+      - "${VAULTWARDEN_PORT:-8085}:80"
+
+volumes:
+  vw-data:
+
+networks:
+  default:
+    name: vaultwarden_network

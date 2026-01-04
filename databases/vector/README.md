@@ -3,8 +3,8 @@
 title: "Vector Databases"
 description: "Databases optimized for storing and searching vector embeddings"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,11 +23,11 @@ Databases designed for storing, indexing, and searching high-dimensional vector 
 
 ```
 vector/
-├── qdrant/             # Qdrant (planned)
-├── milvus/             # Milvus (planned)
-├── weaviate/           # Weaviate (planned)
-├── chroma/             # Chroma (planned)
-└── README.md           # This file
+├── qdrant/       # Qdrant vector search
+├── milvus/       # Milvus scalable vectors
+├── weaviate/     # Weaviate ML-first search
+├── chroma/       # ChromaDB embedding store
+└── README.md     # This file
 ```
 
 ---
@@ -36,27 +36,58 @@ vector/
 
 | Recipe | Description | Status |
 |--------|-------------|--------|
-| [qdrant/](qdrant/) | Qdrant - Rust-based vector similarity engine | 📋 Planned |
-| [milvus/](milvus/) | Milvus - scalable vector database | 📋 Planned |
-| [weaviate/](weaviate/) | Weaviate - ML-first vector search | 📋 Planned |
-| [chroma/](chroma/) | Chroma - AI-native embedding database | 📋 Planned |
+| [qdrant/](qdrant/README.md) | Qdrant - Rust-based vector similarity engine | ✅ Active |
+| [milvus/](milvus/README.md) | Milvus - scalable vector database | ✅ Active |
+| [weaviate/](weaviate/README.md) | Weaviate - ML-first vector search | ✅ Active |
+| [chroma/](chroma/README.md) | ChromaDB - AI-native embedding database | ✅ Active |
 
 ---
 
-## 3. Use Cases
+## 3. Recipe Count: 4
+
+---
+
+## 4. Selection Guide
 
 | Database | Best For |
 |----------|----------|
 | Qdrant | Production RAG, high-performance similarity search |
 | Milvus | Large-scale vector search, enterprise deployments |
 | Weaviate | Semantic search with built-in ML models |
-| Chroma | Local development, LangChain integration, lightweight RAG |
+| ChromaDB | Local development, LangChain integration, lightweight RAG |
 
 ---
 
-## 4. Related
+## 5. Comparison
+
+| Feature | Qdrant | Milvus | Weaviate | ChromaDB |
+|---------|--------|--------|----------|----------|
+| Language | Rust | Go/C++ | Go | Python |
+| Filtering | ✅ Rich | ✅ Rich | ✅ GraphQL | ✅ Basic |
+| Persistence | ✅ | ✅ | ✅ | ✅ |
+| Clustering | ✅ | ✅ | ✅ | ❌ |
+| Resource usage | Low | High | Medium | Low |
+| Best for | Production | Scale | ML-native | Development |
+
+---
+
+## 6. RAG Architecture
+
+Vector databases are the retrieval layer in RAG systems:
+
+```
+Documents → Embedding Model → Vector DB
+                                  ↓
+Query → Embedding Model → Similarity Search → Context → LLM → Response
+```
+
+---
+
+## 7. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [databases/](../README.md) | Parent category |
-| [ai-ml/](../../ai-ml/README.md) | LLM inference servers (Ollama, etc.) |
+| [ai-ml/llm-inference/](../../ai-ml/llm-inference/README.md) | LLM backends |
+| [ai-ml/chat-interfaces/](../../ai-ml/chat-interfaces/README.md) | RAG-capable UIs |
+| [ai-ml/rag-engines/](../../ai-ml/rag-engines/README.md) | Full RAG platforms |

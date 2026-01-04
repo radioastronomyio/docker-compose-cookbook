@@ -1,0 +1,20 @@
+services:
+  comfyui:
+    image: yanwk/comfyui-boot:cu124
+    container_name: comfyui
+    restart: unless-stopped
+    ports:
+      - "8188:8188"
+    volumes:
+      - ./comfyui-storage:/root
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CLI_ARGS=${CLI_ARGS:-}
+      - COMFYUI_CLEAN_OUTPUTS=${COMFYUI_CLEAN_OUTPUTS:-false}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

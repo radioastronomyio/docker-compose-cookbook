@@ -16,45 +16,54 @@ The architecture follows the Interior README Pattern - every directory contains 
 ### Recipe Directories
 **Purpose:** Self-contained deployment configurations for a single service  
 **Location:** Within category directories (e.g., `databases/relational/mysql/`)  
-**Key Characteristics:** docker-compose.yml, .env.example, README.md, docs/ folder, optional scripts/
+**Key Characteristics:** docker-compose.yml, .env.example, README.md, optional docs/ folder
 
 ### Documentation Standards
 **Purpose:** Templates ensuring consistent documentation across all recipes  
 **Location:** `docs/documentation-standards/`  
-**Key Characteristics:** Interior README template, recipe README template, tagging strategy, script headers
+**Key Characteristics:** Interior README template, recipe README template, tagging strategy
 
 ## Structure
 
 ```
 docker-compose-cookbook/
-├── databases/
-│   ├── relational/           # SQL databases
-│   ├── document/             # Document stores
-│   ├── key-value/            # Key-value stores
-│   ├── graph/                # Graph databases
-│   ├── timeseries/           # Time series databases
-│   ├── vector/               # Vector databases (AI/ML)
-│   ├── wide-column/          # Wide-column stores
-│   ├── management/           # Admin tools
+├── ai-ml/
+│   ├── llm-inference/        # Ollama, LocalAI, vLLM, Text-Gen-WebUI
+│   ├── chat-interfaces/      # Open WebUI, LibreChat, AnythingLLM, PrivateGPT
+│   ├── image-generation/     # Automatic1111, ComfyUI, Fooocus, InvokeAI, SwarmUI
+│   ├── audio-intelligence/   # Faster Whisper, Wyoming Whisper
+│   ├── document-processing/  # Stirling-PDF
+│   ├── rag-engines/          # RAGFlow
+│   ├── search-engines/       # Perplexica
+│   ├── ai-agents/            # OpenHands
+│   ├── data-annotation/      # Label Studio, CVAT
 │   └── README.md
-├── networking/               # VPNs, DNS, ad blocking
-├── monitoring-logging/       # Observability stack
-├── automation-orchestration/ # Ansible, Rundeck, etc.
-├── development-ci-cd/        # Git servers, CI/CD
-├── storage-solutions/        # Object storage, sync
-├── security/                 # Auth, secrets
-├── container-management/     # Portainer, etc.
-├── web-application-servers/  # Reverse proxies
-├── messaging-collaboration/  # Chat, email
-├── home-automation/          # Home Assistant, etc.
-├── media-entertainment/      # Media servers
-├── ai-ml/                    # LLM inference, ML tools
-├── data-pipelines/           # Workflow orchestration
+├── automation-orchestration/ # n8n, Flowise, Dify, AWX, Rundeck, StackStorm, etc.
+├── container-management/     # Portainer, Dockge, Watchtower
+├── databases/
+│   ├── relational/           # MySQL, MariaDB, PostgreSQL, SQLite
+│   ├── document/             # MongoDB, CouchDB
+│   ├── key-value/            # Redis, Dragonfly
+│   ├── graph/                # Neo4j
+│   ├── timeseries/           # InfluxDB, QuestDB
+│   ├── vector/               # Qdrant, Milvus, Weaviate, ChromaDB
+│   ├── wide-column/          # Cassandra
+│   ├── management/           # phpMyAdmin, pgAdmin, Redis Commander, Mongo Express
+│   └── README.md
+├── development-ci-cd/        # Gitea, GitLab CE, Gogs, Jenkins, Code-Server
+├── home-automation/          # Frigate
+├── media-entertainment/      # Jellyfin, *Arr stack, Immich, Audiobookshelf
+├── messaging-collaboration/  # Ntfy, Listmonk
+├── monitoring-logging/       # Prometheus, Grafana, Graylog, Uptime Kuma, etc.
+├── networking/               # Traefik, NPM, WireGuard, Pi-hole, Guacamole, etc.
+├── personal-utilities/       # BookStack, Firefly III, Mealie, IT-Tools, etc.
+├── security/                 # Authentik, Vaultwarden
+├── storage-solutions/        # Nextcloud, Paperless-ngx, Syncthing, Duplicati, etc.
+├── web-application-servers/  # Ghost, Baserow, Invoice Ninja, Penpot, etc.
 ├── docs/
 │   └── documentation-standards/
 ├── skeleton/                 # Template for new recipes
 ├── work-logs/                # Development phases
-├── scratch/                  # Working files
 └── README.md                 # Repository root
 ```
 
@@ -64,8 +73,8 @@ docker-compose-cookbook/
 
 - **Interior README Pattern:** Every directory self-documents via README with tree structure and child links
 - **Self-Contained Recipes:** Each recipe works independently without external dependencies
+- **Three-File Recipe Structure:** README.md, docker-compose.yml, .env.example as the standard pattern
 - **Environment Separation:** All configuration via .env files, never hardcoded
-- **Documentation Hierarchy:** Recipe README → docs/ folder for extended content
 
 ### Design Principles
 
@@ -79,31 +88,34 @@ docker-compose-cookbook/
 ### Internal Integrations
 - **Skeleton template:** Starting point for all new recipes
 - **Documentation standards:** Templates for all documentation
-- **Shared scripts:** Common utilities in `shared/` (future)
+- **Work logs:** Document development phases and methodology
 
 ### External Integrations
 - **Docker Hub:** All recipes use official or well-maintained images
-- **GitHub:** Repository hosting, issues, PRs
+- **GitHub:** Repository hosting under radioastronomyio organization
 - **Community:** Contributions via fork/PR workflow
 
 ## Architectural Decisions
 
+### 2025-01-04: Three-File Recipe Pattern
+**Decision:** Standardize on README.md, docker-compose.yml, .env.example as minimum recipe contents  
+**Rationale:** Reduces complexity while maintaining usability; docs/ folder optional for complex recipes  
+**Implications:** Faster recipe creation, consistent user experience
+
+### 2025-01-04: Batch Processing Methodology
+**Decision:** Process additions in batches of 6 with confirmation checkpoints  
+**Rationale:** Prevents timeouts, enables verification between batches  
+**Implications:** Systematic, reliable expansion process
+
 ### 2025-01-02: Database Category Restructure
 **Decision:** Reorganize flat database-management/ into databases/ with subcategories by data model  
 **Rationale:** Better taxonomy, accommodates vector databases, separates management tools  
-**Alternatives Considered:** Keep flat structure, separate vector-databases category  
 **Implications:** Deeper nesting for database recipes, cleaner organization
 
 ### 2025-01-02: Interior README Pattern Adoption
 **Decision:** Every directory gets a README following standard template  
 **Rationale:** RAG optimization, human navigation, AI agent comprehension  
-**Alternatives Considered:** Central index file, wiki-style documentation  
 **Implications:** More files to maintain, but better discoverability
-
-### 2025-01-02: Remove Per-Recipe .github Folders
-**Decision:** Consolidate issue templates to repository root  
-**Rationale:** Reduces maintenance, .github only works at repo root anyway  
-**Implications:** Less clutter in recipe directories
 
 ## Constraints and Limitations
 
@@ -115,15 +127,17 @@ docker-compose-cookbook/
 ## Future Considerations
 
 ### Planned Improvements
-- Add remaining planned recipes to each category
-- Create GitHub Actions for compose validation
-- Add automated testing for recipe syntax
+- Consolidated stack recipes (full *Arr stack, observability stack)
+- GitHub Actions for compose validation
+- Automated testing for recipe syntax
+- Cross-recipe integration examples
 
 ### Scalability Considerations
-- Category structure scales well to 100+ recipes
-- May need search/index tooling as recipe count grows
+- Category structure scales well to 200+ recipes
+- Interior README pattern maintains navigability at scale
+- May need search/index tooling as recipe count grows further
 
 ### Known Technical Debt
-- Some recipe docs are placeholder/incomplete
-- Hardcoded URLs still reference old repository path in some files
-- Some README casing inconsistent (readme.md vs README.md)
+- Some recipe docs/ folders are placeholder/incomplete
+- Banner images not yet created for root README
+- Some older recipes may need refresh to match current patterns

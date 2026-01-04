@@ -1,0 +1,72 @@
+# GlitchTip - Error Tracking (Sentry-Compatible)
+# https://glitchtip.com/
+
+services:
+  web:
+    image: glitchtip/glitchtip
+    container_name: glitchtip-web
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "${GLITCHTIP_PORT:-8000}:8000"
+    environment:
+      DATABASE_URL: postgres://postgres:${PG_PASSWORD}@postgres:5432/glitchtip
+      SECRET_KEY: ${GLITCHTIP_SECRET}
+      PORT: 8000
+      EMAIL_URL: ${EMAIL_URL:-consolemail://}
+      GLITCHTIP_DOMAIN: ${GLITCHTIP_DOMAIN:-http://localhost:8000}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL:-noreply@localhost}
+      CELERY_WORKER_AUTOSCALE: "1,3"
+    volumes:
+      - uploads:/code/uploads
+    restart: unless-stopped
+
+  worker:
+    image: glitchtip/glitchtip
+    container_name: glitchtip-worker
+    command: ./bin/run-celery-with-beat.sh
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgres://postgres:${PG_PASSWORD}@postgres:5432/glitchtip
+      SECRET_KEY: ${GLITCHTIP_SECRET}
+      EMAIL_URL: ${EMAIL_URL:-consolemail://}
+      GLITCHTIP_DOMAIN: ${GLITCHTIP_DOMAIN:-http://localhost:8000}
+    volumes:
+      - uploads:/code/uploads
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16
+    container_name: glitchtip-db
+    environment:
+      POSTGRES_DB: glitchtip
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: glitchtip-redis
+    restart: unless-stopped
+
+volumes:
+  pg-data:
+  uploads:
+
+networks:
+  default:
+    name: glitchtip_network

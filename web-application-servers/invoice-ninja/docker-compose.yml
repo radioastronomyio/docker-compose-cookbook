@@ -1,0 +1,44 @@
+services:
+  invoiceninja:
+    image: invoiceninja/invoiceninja:5
+    container_name: invoiceninja
+    restart: unless-stopped
+    volumes:
+      - ./in_public:/var/www/app/public:rw,delegated
+      - ./in_storage:/var/www/app/storage:rw,delegated
+    environment:
+      - APP_URL=${APP_URL}
+      - APP_KEY=${APP_KEY}
+      - DB_HOST=in_db
+      - DB_DATABASE=ninja
+      - DB_USERNAME=ninja
+      - DB_PASSWORD=${DB_PASS}
+    depends_on:
+      - in_db
+
+  in_web:
+    image: nginx:alpine
+    container_name: invoiceninja_web
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./in_public:/var/www/app/public:ro
+    ports:
+      - "8091:80"
+    depends_on:
+      - invoiceninja
+
+  in_db:
+    image: mysql:8
+    container_name: invoiceninja_db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - MYSQL_DATABASE=ninja
+      - MYSQL_USER=ninja
+      - MYSQL_PASSWORD=${DB_PASS}
+    volumes:
+      - in_db_data:/var/lib/mysql
+
+volumes:
+  in_db_data:

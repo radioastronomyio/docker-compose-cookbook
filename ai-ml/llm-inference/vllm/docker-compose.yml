@@ -1,0 +1,31 @@
+# vLLM - High-Throughput LLM Inference
+# https://docs.vllm.ai/
+
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: vllm
+    restart: unless-stopped
+    ports:
+      - "${VLLM_PORT:-8000}:8000"
+    environment:
+      - HUGGING_FACE_HUB_TOKEN=${HF_TOKEN}
+    volumes:
+      - ./vllm-cache:/root/.cache/huggingface
+    # Model and memory configuration via command
+    command: >
+      --model ${MODEL:-mistralai/Mistral-7B-Instruct-v0.2}
+      --gpu-memory-utilization ${GPU_MEMORY_UTILIZATION:-0.85}
+      --host 0.0.0.0
+      --port 8000
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  default:
+    name: vllm_network

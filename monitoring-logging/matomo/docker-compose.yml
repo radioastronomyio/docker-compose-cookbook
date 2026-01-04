@@ -1,0 +1,30 @@
+services:
+  matomo:
+    image: matomo
+    container_name: matomo
+    restart: always
+    ports:
+      - "8093:80"
+    environment:
+      - MATOMO_DATABASE_HOST=matomo_db
+      - MATOMO_DATABASE_USERNAME=matomo
+      - MATOMO_DATABASE_PASSWORD=${DB_PASS}
+      - MATOMO_DATABASE_DBNAME=matomo
+    volumes:
+      - matomo_html:/var/www/html
+
+  matomo_db:
+    image: mariadb
+    container_name: matomo_db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=matomo
+      - MYSQL_USER=matomo
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    volumes:
+      - matomo_db_data:/var/lib/mysql
+
+volumes:
+  matomo_html:
+  matomo_db_data:
