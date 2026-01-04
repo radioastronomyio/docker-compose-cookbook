@@ -1,0 +1,11 @@
+services:
+  excalidraw:
+    image: excalidraw/excalidraw:latest
+    container_name: excalidraw
+    restart: unless-stopped
+    ports:
+      - "3003:80"
+    healthcheck:
+      disable: true
+    environment:
+      - NODE_ENV=production

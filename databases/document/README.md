@@ -3,8 +3,8 @@
 title: "Document Databases"
 description: "NoSQL document-oriented databases storing JSON-like documents"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,9 +23,9 @@ NoSQL document-oriented databases that store data as JSON-like documents. These 
 
 ```
 document/
-├── mongodb/            # MongoDB document store
-├── couchdb/            # Apache CouchDB
-└── README.md           # This file
+├── mongodb/      # MongoDB document store
+├── couchdb/      # Apache CouchDB
+└── README.md     # This file
 ```
 
 ---
@@ -39,7 +39,11 @@ document/
 
 ---
 
-## 3. Use Cases
+## 3. Recipe Count: 2
+
+---
+
+## 4. Selection Guide
 
 | Database | Best For |
 |----------|----------|
@@ -48,9 +52,20 @@ document/
 
 ---
 
-## 4. Related
+## 5. Comparison
+
+| Feature | MongoDB | CouchDB |
+|---------|---------|---------|
+| Query language | MQL | Mango/MapReduce |
+| Replication | Replica sets | Multi-master |
+| API | Binary protocol | REST/HTTP |
+| Offline support | Limited | Built-in |
+
+---
+
+## 6. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [databases/](../README.md) | Parent category |
-| [management/](../management/README.md) | Admin tools (mongo-express) |
+| [management/](../management/README.md) | Admin tools (Mongo Express) |

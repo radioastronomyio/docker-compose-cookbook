@@ -1,0 +1,18 @@
+services:
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: docker-server
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./syncthing_config:/config
+      - ./syncthing_data:/data1
+    ports:
+      - "8384:8384"      # Web UI
+      - "22000:22000/tcp"  # Transfer
+      - "22000:22000/udp"
+      - "21027:21027/udp"  # Discovery

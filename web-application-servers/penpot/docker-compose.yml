@@ -1,0 +1,66 @@
+# Penpot - Open Source Design Platform
+# https://penpot.app/
+
+services:
+  penpot-frontend:
+    image: penpotapp/frontend:latest
+    container_name: penpot-frontend
+    ports:
+      - "${PENPOT_PORT:-9001}:8080"
+    volumes:
+      - penpot_assets:/opt/data/assets
+    depends_on:
+      - penpot-backend
+      - penpot-exporter
+    restart: unless-stopped
+
+  penpot-backend:
+    image: penpotapp/backend:latest
+    container_name: penpot-backend
+    volumes:
+      - penpot_assets:/opt/data/assets
+    depends_on:
+      - penpot-postgres
+      - penpot-redis
+    environment:
+      - PENPOT_FLAGS=${PENPOT_FLAGS:-disable-registration enable-login-with-password}
+      - PENPOT_DATABASE_URI=postgresql://penpot-postgres/penpot
+      - PENPOT_DATABASE_USERNAME=penpot
+      - PENPOT_DATABASE_PASSWORD=${PG_PASSWORD}
+      - PENPOT_REDIS_URI=redis://penpot-redis/0
+      - PENPOT_ASSETS_STORAGE_BACKEND=assets-fs
+      - PENPOT_STORAGE_ASSETS_FS_DIRECTORY=/opt/data/assets
+      - PENPOT_PUBLIC_URI=${PUBLIC_URI:-http://localhost:9001}
+      - PENPOT_SECRET_KEY=${SECRET_KEY}
+    restart: unless-stopped
+
+  penpot-exporter:
+    image: penpotapp/exporter:latest
+    container_name: penpot-exporter
+    environment:
+      - PENPOT_PUBLIC_URI=${PUBLIC_URI:-http://localhost:9001}
+    restart: unless-stopped
+
+  penpot-postgres:
+    image: postgres:15
+    container_name: penpot-postgres
+    environment:
+      - POSTGRES_DB=penpot
+      - POSTGRES_USER=penpot
+      - POSTGRES_PASSWORD=${PG_PASSWORD}
+    volumes:
+      - penpot_postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  penpot-redis:
+    image: redis:7-alpine
+    container_name: penpot-redis
+    restart: unless-stopped
+
+volumes:
+  penpot_postgres:
+  penpot_assets:
+
+networks:
+  default:
+    name: penpot_network

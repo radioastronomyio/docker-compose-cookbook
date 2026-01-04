@@ -1,0 +1,36 @@
+services:
+  guacd:
+    image: guacamole/guacd
+    container_name: guacd
+    restart: unless-stopped
+
+  guacamole:
+    image: guacamole/guacamole
+    container_name: guacamole
+    restart: unless-stopped
+    environment:
+      - GUACD_HOSTNAME=guacd
+      - MYSQL_HOSTNAME=guac_db
+      - MYSQL_DATABASE=guacamole_db
+      - MYSQL_USER=guacamole_user
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "8088:8080"
+    depends_on:
+      - guac_db
+      - guacd
+
+  guac_db:
+    image: mysql:latest
+    container_name: guac_db
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - MYSQL_DATABASE=guacamole_db
+      - MYSQL_USER=guacamole_user
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - guac_db_data:/var/lib/mysql
+
+volumes:
+  guac_db_data:

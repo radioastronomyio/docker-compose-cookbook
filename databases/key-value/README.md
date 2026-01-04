@@ -3,8 +3,8 @@
 title: "Key-Value Stores"
 description: "High-performance key-value data stores for caching and sessions"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,9 +23,9 @@ High-performance key-value data stores optimized for speed. These databases exce
 
 ```
 key-value/
-├── redis/              # Redis in-memory data store
-├── dragonfly/          # DragonFly (planned)
-└── README.md           # This file
+├── redis/        # Redis in-memory data store
+├── dragonfly/    # DragonFly Redis alternative
+└── README.md     # This file
 ```
 
 ---
@@ -35,22 +35,37 @@ key-value/
 | Recipe | Description | Status |
 |--------|-------------|--------|
 | [redis/](redis/README.md) | Redis - in-memory data structure store | ✅ Active |
-| [dragonfly/](dragonfly/) | DragonFly - Redis-compatible, higher performance | 📋 Planned |
+| [dragonfly/](dragonfly/README.md) | DragonFly - Redis-compatible with higher performance | ✅ Active |
 
 ---
 
-## 3. Use Cases
+## 3. Recipe Count: 2
+
+---
+
+## 4. Selection Guide
 
 | Database | Best For |
 |----------|----------|
 | Redis | Caching, sessions, queues, pub/sub, leaderboards |
-| DragonFly | Redis replacement with better memory efficiency and throughput |
+| Dragonfly | Redis replacement with better memory efficiency and throughput |
 
 ---
 
-## 4. Related
+## 5. Comparison
+
+| Feature | Redis | Dragonfly |
+|---------|-------|-----------|
+| Protocol | Redis | Redis-compatible |
+| Multi-threading | Single + I/O | Fully multi-threaded |
+| Memory efficiency | Good | Better |
+| Drop-in replacement | N/A | ✅ |
+
+---
+
+## 6. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [databases/](../README.md) | Parent category |
-| [management/](../management/README.md) | Admin tools (redis-commander) |
+| [management/](../management/README.md) | Admin tools (Redis Commander) |

@@ -1,0 +1,53 @@
+# Hoarder - AI-Enhanced Bookmarking
+# https://github.com/hoarder-app/hoarder
+
+services:
+  web:
+    image: ghcr.io/hoarder-app/hoarder:release
+    container_name: hoarder
+    restart: unless-stopped
+    ports:
+      - "${HOARDER_PORT:-3000}:3000"
+    environment:
+      MEILI_ADDR: http://meilisearch:7700
+      BROWSER_WEB_URL: http://chrome:9222
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      DATA_DIR: /data
+      # Optional: Connect to Ollama for AI tagging
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-}
+      INFERENCE_TEXT_MODEL: ${INFERENCE_MODEL:-}
+    volumes:
+      - hoarder-data:/data
+    depends_on:
+      - meilisearch
+      - chrome
+
+  chrome:
+    image: gcr.io/zenika-hub/alpine-chrome:123
+    container_name: hoarder-chrome
+    restart: unless-stopped
+    command:
+      - --no-sandbox
+      - --disable-gpu
+      - --disable-dev-shm-usage
+      - --remote-debugging-address=0.0.0.0
+      - --remote-debugging-port=9222
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.11.1
+    container_name: hoarder-meilisearch
+    restart: unless-stopped
+    environment:
+      MEILI_NO_ANALYTICS: "true"
+      MEILI_MASTER_KEY: ${MEILI_MASTER_KEY}
+    volumes:
+      - meilisearch-data:/meili_data
+
+volumes:
+  hoarder-data:
+  meilisearch-data:
+
+networks:
+  default:
+    name: hoarder_network

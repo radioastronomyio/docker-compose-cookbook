@@ -1,0 +1,16 @@
+services:
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=${TZ}
+    ports:
+      - "5055:5055"
+    volumes:
+      - ./jellyseerr_config:/app/config
+    depends_on:
+      - jellyfin
+      - sonarr
+      - radarr

@@ -3,8 +3,8 @@
 title: "Docker Compose Cookbook"
 description: "Curated Docker Compose configurations for self-hosted services"
 author: "VintageDon"
-date: "2025-01-03"
-version: "3.0"
+date: "2025-01-04"
+version: "3.1"
 status: "Active"
 tags:
   - type: project-root
@@ -23,7 +23,7 @@ related_documents:
 [![Docker](https://img.shields.io/badge/Docker-20.10+-2496ED?logo=docker)](https://www.docker.com/)
 [![Compose](https://img.shields.io/badge/Compose-v2-2496ED?logo=docker)](https://docs.docker.com/compose/)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
-[![Recipes](https://img.shields.io/badge/Recipes-56+-green)]()
+[![Recipes](https://img.shields.io/badge/Recipes-100+-green)]()
 
 > Curated Docker Compose configurations for self-hosted services, organized by category with comprehensive documentation.
 
@@ -61,20 +61,20 @@ The Docker Compose Cookbook addresses this by providing:
 
 | Category | Recipes | Status | Jump |
 |----------|---------|--------|------|
-| AI & Machine Learning | 16 | Active | [→](#ai--machine-learning) |
-| Automation & Orchestration | 6 | Active | [→](#automation--orchestration) |
-| Databases | 13 | Active | [→](#databases) |
-| Development & CI/CD | 8 | Active | [→](#development--cicd) |
-| Monitoring & Logging | 5 | Active | [→](#monitoring--logging) |
-| Networking | 6 | Active | [→](#networking) |
+| AI & Machine Learning | 21 | Active | [→](#ai--machine-learning) |
+| Automation & Orchestration | 8 | Active | [→](#automation--orchestration) |
+| Container Management | 3 | Active | [→](#container-management) |
+| Databases | 20 | Active | [→](#databases) |
+| Development & CI/CD | 9 | Active | [→](#development--cicd) |
 | Home Automation | 1 | Active | [→](#home-automation) |
-| Media & Entertainment | 1 | Active | [→](#media--entertainment) |
-| Container Management | 0 | Planned | [→](#container-management) |
-| Data Pipelines | 0 | Planned | [→](#data-pipelines) |
-| Messaging & Collaboration | 0 | Planned | [→](#messaging--collaboration) |
-| Security | 0 | Planned | [→](#security) |
-| Storage Solutions | 0 | Planned | [→](#storage-solutions) |
-| Web Application Servers | 0 | Planned | [→](#web-application-servers) |
+| Media & Entertainment | 8 | Active | [→](#media--entertainment) |
+| Messaging & Collaboration | 2 | Active | [→](#messaging--collaboration) |
+| Monitoring & Logging | 13 | Active | [→](#monitoring--logging) |
+| Networking | 10 | Active | [→](#networking) |
+| Personal Utilities | 8 | Active | [→](#personal-utilities) |
+| Security | 2 | Active | [→](#security) |
+| Storage Solutions | 6 | Active | [→](#storage-solutions) |
+| Web Application Servers | 6 | Active | [→](#web-application-servers) |
 
 ---
 
@@ -89,6 +89,10 @@ Docker Compose recipes for local LLM inference, AI tools, image generation, and 
 | [image-generation](ai-ml/image-generation/README.md) | Image synthesis tools | Automatic1111, ComfyUI, Fooocus, InvokeAI, SwarmUI |
 | [audio-intelligence](ai-ml/audio-intelligence/README.md) | Speech recognition | Faster Whisper, Wyoming Whisper |
 | [document-processing](ai-ml/document-processing/README.md) | Document manipulation with OCR | Stirling-PDF |
+| [rag-engines](ai-ml/rag-engines/README.md) | RAG orchestration | RAGFlow |
+| [search-engines](ai-ml/search-engines/README.md) | AI-powered search | Perplexica |
+| [ai-agents](ai-ml/ai-agents/README.md) | Autonomous AI agents | OpenHands |
+| [data-annotation](ai-ml/data-annotation/README.md) | ML data labeling | Label Studio, CVAT |
 
 [→ Full details](ai-ml/README.md)
 
@@ -106,8 +110,24 @@ Infrastructure automation, workflow engines, and AI agent platforms.
 | [n8n](automation-orchestration/n8n/README.md) | Workflow automation with LangChain integration |
 | [flowise](automation-orchestration/flowise/README.md) | Low-code LangChain app builder |
 | [dify](automation-orchestration/dify/README.md) | GenAI application development platform |
+| [changedetection](automation-orchestration/changedetection/README.md) | Website change monitoring |
+| [postiz](automation-orchestration/postiz/README.md) | Social media scheduling |
 
 [→ Full details](automation-orchestration/README.md)
+
+---
+
+## Container Management
+
+Container orchestration interfaces and management tools.
+
+| Recipe | Description |
+|--------|-------------|
+| [portainer](container-management/portainer/README.md) | Container management UI |
+| [dockge](container-management/dockge/README.md) | Docker Compose stack manager |
+| [watchtower](container-management/watchtower/README.md) | Automated container updates |
+
+[→ Full details](container-management/README.md)
 
 ---
 
@@ -117,14 +137,14 @@ SQL, NoSQL, time series, vector, and graph databases organized by data model.
 
 | Subcategory | Description | Recipes |
 |-------------|-------------|---------|
-| [relational](databases/relational/README.md) | SQL databases | MySQL, MariaDB, SQLite |
+| [relational](databases/relational/README.md) | SQL databases | MySQL, MariaDB, PostgreSQL, SQLite |
 | [document](databases/document/README.md) | Document stores | MongoDB, CouchDB |
-| [key-value](databases/key-value/README.md) | In-memory stores | Redis |
+| [key-value](databases/key-value/README.md) | In-memory stores | Redis, Dragonfly |
 | [graph](databases/graph/README.md) | Graph databases | Neo4j |
-| [timeseries](databases/timeseries/README.md) | Time series databases | InfluxDB |
+| [timeseries](databases/timeseries/README.md) | Time series databases | InfluxDB, QuestDB |
 | [vector](databases/vector/README.md) | Vector embeddings for RAG | Qdrant, Milvus, Weaviate, ChromaDB |
 | [wide-column](databases/wide-column/README.md) | Wide-column stores | Cassandra |
-| [management](databases/management/README.md) | Admin tools | Planned |
+| [management](databases/management/README.md) | Admin tools | pgAdmin, phpMyAdmin, Mongo Express, Redis Commander |
 
 [→ Full details](databases/README.md)
 
@@ -144,41 +164,9 @@ Git servers, CI/CD pipelines, and development tools.
 | [gogs-postgres](development-ci-cd/gogs-postgres/README.md) | Gogs with PostgreSQL backend |
 | [gogs-sqlite3](development-ci-cd/gogs-sqlite3/README.md) | Gogs with SQLite backend |
 | [jenkins-sqlite3](development-ci-cd/jenkins-sqlite3/README.md) | Jenkins CI server |
+| [code-server](development-ci-cd/code-server/README.md) | VS Code in the browser |
 
 [→ Full details](development-ci-cd/README.md)
-
----
-
-## Monitoring & Logging
-
-Metrics collection, visualization, and log aggregation.
-
-| Recipe | Description |
-|--------|-------------|
-| [cacti-mysql](monitoring-logging/cacti-mysql/README.md) | Network graphing with RRDtool |
-| [fluentd](monitoring-logging/fluentd/README.md) | Unified logging layer |
-| [grafana](monitoring-logging/grafana/README.md) | Metrics visualization |
-| [graylog-elasticsearch-mongodb](monitoring-logging/graylog-elasticsearch-mongodb/README.md) | Centralized log management |
-| [Prometheus](monitoring-logging/Prometheus/README.md) | Time series metrics database |
-
-[→ Full details](monitoring-logging/README.md)
-
----
-
-## Networking
-
-VPNs, DNS servers, ad blocking, and network tools.
-
-| Recipe | Description |
-|--------|-------------|
-| [adguard-home](networking/adguard-home/README.md) | Network-wide ad blocking |
-| [openvpn](networking/openvpn/README.md) | OpenVPN server |
-| [pihole](networking/pihole/README.md) | DNS-based ad blocking |
-| [searxng](networking/searxng/README.md) | Privacy-respecting metasearch engine |
-| [softethervpn](networking/softethervpn/README.md) | Multi-protocol VPN server |
-| [wireguard](networking/wireguard/README.md) | Modern VPN tunnel |
-
-[→ Full details](networking/README.md)
 
 ---
 
@@ -198,53 +186,108 @@ Planned: Home Assistant, Node-RED, Mosquitto MQTT.
 
 ## Media & Entertainment
 
-Media servers, photo management, and streaming platforms.
+Media servers, photo management, streaming platforms, and the complete *Arr media automation stack.
 
 | Recipe | Description |
 |--------|-------------|
-| [immich](media-entertainment/immich/README.md) | Self-hosted Google Photos alternative with ML |
-
-Planned: Jellyfin, Plex, *arr stack.
+| [jellyfin](media-entertainment/jellyfin/README.md) | Open-source media server with GPU transcoding |
+| [prowlarr](media-entertainment/prowlarr/README.md) | Indexer manager for *Arr stack |
+| [sonarr](media-entertainment/sonarr/README.md) | TV series lifecycle management |
+| [radarr](media-entertainment/radarr/README.md) | Movie lifecycle management |
+| [jellyseerr](media-entertainment/jellyseerr/README.md) | Media request management |
+| [bazarr](media-entertainment/bazarr/README.md) | Subtitle automation |
+| [immich](media-entertainment/immich/README.md) | Self-hosted Google Photos alternative |
+| [audiobookshelf](media-entertainment/audiobookshelf/README.md) | Audiobook and podcast server |
 
 [→ Full details](media-entertainment/README.md)
 
 ---
 
-## Container Management
-
-Container orchestration interfaces and management tools.
-
-Planned: Portainer, Dockge, Watchtower.
-
-[→ Full details](container-management/README.md)
-
----
-
-## Data Pipelines
-
-Workflow orchestration, ETL, and data processing.
-
-Planned: Airflow, Dagster, Prefect.
-
-[→ Full details](data-pipelines/README.md)
-
----
-
 ## Messaging & Collaboration
 
-Chat platforms, email servers, and team communication.
+Push notifications, newsletters, and team communication.
 
-Planned: Matrix, Mattermost, Mailcow.
+| Recipe | Description |
+|--------|-------------|
+| [ntfy](messaging-collaboration/ntfy/README.md) | Push notification server |
+| [listmonk](messaging-collaboration/listmonk/README.md) | Newsletter and mailing list manager |
 
 [→ Full details](messaging-collaboration/README.md)
 
 ---
 
+## Monitoring & Logging
+
+Metrics collection, visualization, log aggregation, and system observability.
+
+| Recipe | Description |
+|--------|-------------|
+| [Prometheus](monitoring-logging/Prometheus/README.md) | Time series metrics database |
+| [grafana](monitoring-logging/grafana/README.md) | Metrics visualization |
+| [graylog-elasticsearch-mongodb](monitoring-logging/graylog-elasticsearch-mongodb/README.md) | Centralized log management |
+| [fluentd](monitoring-logging/fluentd/README.md) | Unified logging layer |
+| [cacti-mysql](monitoring-logging/cacti-mysql/README.md) | Network graphing with RRDtool |
+| [uptime-kuma](monitoring-logging/uptime-kuma/README.md) | Status monitoring |
+| [beszel](monitoring-logging/beszel/README.md) | Lightweight server monitoring |
+| [glitchtip](monitoring-logging/glitchtip/README.md) | Error tracking (Sentry alternative) |
+| [homarr](monitoring-logging/homarr/README.md) | Dashboard for self-hosted services |
+| [scrutiny](monitoring-logging/scrutiny/README.md) | Hard drive S.M.A.R.T. monitoring |
+| [netdata](monitoring-logging/netdata/README.md) | Real-time performance monitoring |
+| [dozzle](monitoring-logging/dozzle/README.md) | Real-time container log viewer |
+| [matomo](monitoring-logging/matomo/README.md) | Web analytics (Google Analytics alternative) |
+
+[→ Full details](monitoring-logging/README.md)
+
+---
+
+## Networking
+
+VPNs, DNS servers, reverse proxies, ad blocking, and network tools.
+
+| Recipe | Description |
+|--------|-------------|
+| [adguard-home](networking/adguard-home/README.md) | Network-wide ad blocking |
+| [pihole](networking/pihole/README.md) | DNS-based ad blocking |
+| [wireguard](networking/wireguard/README.md) | Modern VPN tunnel |
+| [openvpn](networking/openvpn/README.md) | OpenVPN server |
+| [softethervpn](networking/softethervpn/README.md) | Multi-protocol VPN server |
+| [searxng](networking/searxng/README.md) | Privacy-respecting metasearch engine |
+| [nginx-proxy-manager](networking/nginx-proxy-manager/README.md) | Reverse proxy with GUI |
+| [traefik](networking/traefik/README.md) | Cloud-native edge router |
+| [headscale](networking/headscale/README.md) | Self-hosted Tailscale control server |
+| [guacamole](networking/guacamole/README.md) | Clientless remote desktop gateway |
+
+[→ Full details](networking/README.md)
+
+---
+
+## Personal Utilities
+
+Knowledge management, productivity tools, and personal finance.
+
+| Recipe | Description |
+|--------|-------------|
+| [bookstack](personal-utilities/bookstack/README.md) | Wiki and documentation platform |
+| [linkwarden](personal-utilities/linkwarden/README.md) | Bookmark manager with archival |
+| [excalidraw](personal-utilities/excalidraw/README.md) | Virtual whiteboard |
+| [firefly-iii](personal-utilities/firefly-iii/README.md) | Personal finance manager |
+| [it-tools](personal-utilities/it-tools/README.md) | Developer utilities collection |
+| [hoarder](personal-utilities/hoarder/README.md) | Bookmark and read-later app |
+| [mealie](personal-utilities/mealie/README.md) | Recipe manager |
+| [actual-budget](personal-utilities/actual-budget/README.md) | Budget tracking |
+
+[→ Full details](personal-utilities/README.md)
+
+---
+
 ## Security
 
-Authentication, secrets management, and vulnerability scanning.
+Authentication, secrets management, and password vaults.
 
-Planned: Keycloak, Authelia, Vaultwarden.
+| Recipe | Description |
+|--------|-------------|
+| [authentik](security/authentik/README.md) | Identity provider and SSO |
+| [vaultwarden](security/vaultwarden/README.md) | Bitwarden-compatible password manager |
 
 [→ Full details](security/README.md)
 
@@ -252,9 +295,16 @@ Planned: Keycloak, Authelia, Vaultwarden.
 
 ## Storage Solutions
 
-Object storage, file synchronization, and backup tools.
+File synchronization, backup tools, and document management.
 
-Planned: MinIO, Nextcloud, Syncthing.
+| Recipe | Description |
+|--------|-------------|
+| [nextcloud-aio](storage-solutions/nextcloud-aio/README.md) | Self-hosted cloud storage |
+| [paperless-ngx](storage-solutions/paperless-ngx/README.md) | Document management system |
+| [filebrowser](storage-solutions/filebrowser/README.md) | Web file manager |
+| [pingvin-share](storage-solutions/pingvin-share/README.md) | File sharing (WeTransfer alternative) |
+| [syncthing](storage-solutions/syncthing/README.md) | Decentralized file sync |
+| [duplicati](storage-solutions/duplicati/README.md) | Encrypted backup solution |
 
 [→ Full details](storage-solutions/README.md)
 
@@ -262,9 +312,16 @@ Planned: MinIO, Nextcloud, Syncthing.
 
 ## Web Application Servers
 
-Reverse proxies, load balancers, and web servers.
+CMS platforms, no-code databases, and business applications.
 
-Planned: Traefik, Caddy, Nginx Proxy Manager.
+| Recipe | Description |
+|--------|-------------|
+| [ghost](web-application-servers/ghost/README.md) | Professional publishing platform |
+| [baserow](web-application-servers/baserow/README.md) | No-code database (Airtable alternative) |
+| [invoice-ninja](web-application-servers/invoice-ninja/README.md) | Invoicing and billing |
+| [docmost](web-application-servers/docmost/README.md) | Documentation platform |
+| [penpot](web-application-servers/penpot/README.md) | Design platform (Figma alternative) |
+| [twenty](web-application-servers/twenty/README.md) | CRM platform |
 
 [→ Full details](web-application-servers/README.md)
 
@@ -278,7 +335,7 @@ git clone https://github.com/radioastronomyio/docker-compose-cookbook.git
 cd docker-compose-cookbook
 
 # Navigate to desired recipe
-cd databases/relational/mysql
+cd media-entertainment/jellyfin
 
 # Copy and customize environment
 cp .env.example .env
@@ -375,4 +432,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ---
 
-Last Updated: January 3, 2025 | 56 Active Recipes | 14 Categories
+Last Updated: January 4, 2025 | 100+ Active Recipes | 14 Categories

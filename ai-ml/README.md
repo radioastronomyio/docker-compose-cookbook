@@ -3,8 +3,8 @@
 title: "AI & Machine Learning"
 description: "LLM inference, AI tools, and machine learning platforms"
 author: "VintageDon"
-date: "2025-01-03"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -27,6 +27,10 @@ ai-ml/
 ├── image-generation/     # Stable Diffusion and diffusion models
 ├── audio-intelligence/   # Speech-to-text and audio processing
 ├── document-processing/  # AI-enhanced document tools
+├── rag-engines/          # RAG orchestration platforms
+├── search-engines/       # AI-powered search
+├── ai-agents/            # Autonomous AI agents
+├── data-annotation/      # ML data labeling tools
 └── README.md             # This file
 ```
 
@@ -34,29 +38,54 @@ ai-ml/
 
 ## 2. Subdirectories
 
-| Directory | Description |
-|-----------|-------------|
-| [llm-inference/](llm-inference/README.md) | Ollama, LocalAI, vLLM, Text Generation WebUI |
-| [chat-interfaces/](chat-interfaces/README.md) | Open WebUI, LibreChat, AnythingLLM, PrivateGPT |
-| [image-generation/](image-generation/README.md) | Automatic1111, ComfyUI, Fooocus, InvokeAI, SwarmUI |
-| [audio-intelligence/](audio-intelligence/README.md) | Faster Whisper, Wyoming Whisper |
-| [document-processing/](document-processing/README.md) | Stirling-PDF |
+| Directory | Description | Recipes |
+|-----------|-------------|---------|
+| [llm-inference/](llm-inference/README.md) | LLM inference engines | Ollama, LocalAI, vLLM, Text-Generation-WebUI |
+| [chat-interfaces/](chat-interfaces/README.md) | Web UIs for LLM interaction | Open WebUI, LibreChat, AnythingLLM, PrivateGPT |
+| [image-generation/](image-generation/README.md) | Diffusion model interfaces | Automatic1111, ComfyUI, Fooocus, InvokeAI, SwarmUI |
+| [audio-intelligence/](audio-intelligence/README.md) | Speech recognition | Faster Whisper, Wyoming Whisper |
+| [document-processing/](document-processing/README.md) | Document manipulation | Stirling-PDF |
+| [rag-engines/](rag-engines/README.md) | RAG orchestration | RAGFlow |
+| [search-engines/](search-engines/README.md) | AI-powered search | Perplexica |
+| [ai-agents/](ai-agents/README.md) | Autonomous agents | OpenHands |
+| [data-annotation/](data-annotation/README.md) | ML data labeling | Label Studio, CVAT |
 
 ---
 
-## 3. Quick Reference
+## 3. Recipe Count
+
+| Subcategory | Count |
+|-------------|-------|
+| llm-inference | 4 |
+| chat-interfaces | 4 |
+| image-generation | 5 |
+| audio-intelligence | 2 |
+| document-processing | 1 |
+| rag-engines | 1 |
+| search-engines | 1 |
+| ai-agents | 1 |
+| data-annotation | 2 |
+| **Total** | **21** |
+
+---
+
+## 4. Quick Reference
 
 | Need | Recommended Stack |
 |------|-------------------|
 | Local ChatGPT alternative | Ollama + Open WebUI |
 | OpenAI API compatibility | LocalAI |
 | Document Q&A (RAG) | Ollama + AnythingLLM + ChromaDB |
+| Enterprise RAG | RAGFlow |
+| AI-powered search | Perplexica |
 | Image generation | ComfyUI or Fooocus |
 | Voice transcription | Faster Whisper |
+| ML data labeling | Label Studio or CVAT |
+| Autonomous coding agent | OpenHands |
 
 ---
 
-## 4. Hardware Requirements
+## 5. Hardware Requirements
 
 | Component | CPU-Only | GPU Required |
 |-----------|----------|--------------|
@@ -64,10 +93,11 @@ ai-ml/
 | LLM inference (70B) | ❌ | ✅ 48GB+ VRAM |
 | Image generation | ❌ | ✅ 8GB+ VRAM |
 | Speech recognition | ✅ Slow | ✅ Fast |
+| Data annotation | ✅ | Optional |
 
 ---
 
-## 5. GPU Configuration
+## 6. GPU Configuration
 
 All GPU-accelerated recipes use the Docker Deploy specification:
 
@@ -82,13 +112,14 @@ deploy:
 ```
 
 Prerequisites:
+
 - NVIDIA GPU with CUDA support
 - NVIDIA Container Toolkit installed
 - Docker Desktop with WSL2 (Windows) or native Docker (Linux)
 
 ---
 
-## 6. Related
+## 7. Related
 
 | Document | Relationship |
 |----------|--------------|

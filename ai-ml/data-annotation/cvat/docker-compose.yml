@@ -1,0 +1,82 @@
+# CVAT - Computer Vision Annotation Tool
+# https://docs.cvat.ai/
+
+services:
+  cvat_db:
+    container_name: cvat_db
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: cvat
+      POSTGRES_PASSWORD: ${CVAT_POSTGRES_PASSWORD}
+    volumes:
+      - cvat_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d cvat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cvat_redis:
+    container_name: cvat_redis
+    image: redis:7.2-alpine
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cvat_server:
+    container_name: cvat_server
+    image: cvat/server:latest
+    restart: always
+    depends_on:
+      cvat_db:
+        condition: service_healthy
+      cvat_redis:
+        condition: service_healthy
+    environment:
+      DJANGO_MODWSGI_EXTRA_ARGS: ""
+      CVAT_POSTGRES_HOST: cvat_db
+      CVAT_POSTGRES_PASSWORD: ${CVAT_POSTGRES_PASSWORD}
+      CVAT_REDIS_HOST: cvat_redis
+      # CRITICAL: Set to your machine's IP or FQDN, NOT localhost
+      CVAT_HOST: ${CVAT_HOST}
+    volumes:
+      - cvat_data:/home/django/data
+      - cvat_keys:/home/django/keys
+      - cvat_logs:/home/django/logs
+
+  cvat_ui:
+    container_name: cvat_ui
+    image: cvat/ui:latest
+    restart: always
+    depends_on:
+      - cvat_server
+
+  traefik:
+    image: traefik:v2.10
+    container_name: cvat_traefik
+    restart: always
+    command:
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=cvat"
+      - "--entrypoints.web.address=:8080"
+    ports:
+      - "${CVAT_PORT:-8090}:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - default
+
+volumes:
+  cvat_db:
+  cvat_data:
+  cvat_keys:
+  cvat_logs:
+
+networks:
+  default:
+    name: cvat

@@ -1,0 +1,45 @@
+# Perplexica - AI-Powered Answer Engine
+# https://github.com/ItzCrazyKns/Perplexica
+
+services:
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    container_name: perplexica-searxng
+    volumes:
+      - searxng-data:/etc/searxng:rw
+    ports:
+      - "${SEARXNG_PORT:-4000}:8080"
+    networks:
+      - perplexica-network
+    restart: unless-stopped
+
+  perplexica:
+    image: itzcrazykns1337/perplexica:latest
+    container_name: perplexica-app
+    depends_on:
+      - searxng
+    ports:
+      - "${PERPLEXICA_PORT:-3000}:3000"
+      - "${PERPLEXICA_API_PORT:-3001}:3001"
+    environment:
+      - SEARXNG_API_URL=http://searxng:8080
+      - NEXT_PUBLIC_API_URL=http://localhost:${PERPLEXICA_API_PORT:-3001}/api
+      - NEXT_PUBLIC_WS_URL=ws://localhost:${PERPLEXICA_API_PORT:-3001}
+      # Connect to local Ollama instance on the host
+      - OLLAMA_API_URL=http://host.docker.internal:${OLLAMA_PORT:-11434}
+    volumes:
+      - perplexica-data:/home/perplexica/data
+      - ./config.toml:/home/perplexica/config.toml:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - perplexica-network
+    restart: unless-stopped
+
+volumes:
+  searxng-data:
+  perplexica-data:
+
+networks:
+  perplexica-network:
+    name: perplexica_network

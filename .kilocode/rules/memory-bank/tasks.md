@@ -8,20 +8,37 @@
 **Frequency:** Primary development activity
 
 **Steps:**
-1. Copy skeleton template to appropriate category directory
-   ```bash
-   cp -r skeleton/ category/subcategory/new-recipe/
-   ```
+1. Create recipe directory in appropriate category
 2. Create `docker-compose.yml` with service configuration
 3. Create `.env.example` with all configurable variables
-4. Write `README.md` following `docs/documentation-standards/recipe-readme-template.md`
-5. Create docs/ folder with CONFIGURATION.md, SECURITY.md, TROUBLESHOOTING.md at minimum
-6. Test deployment locally: `docker compose up -d && docker compose logs`
-7. Update parent category README.md to include new recipe in table
-8. Commit and push
+4. Write `README.md` following recipe pattern (metadata, description, quick start, configuration, volumes, ports)
+5. Test deployment locally: `docker compose up -d && docker compose logs`
+6. Update parent category README.md to include new recipe in table
+7. Commit and push
 
-**Expected Outcome:** Deployable recipe with full documentation  
+**Expected Outcome:** Deployable recipe with three-file structure  
 **Common Issues:** Missing environment variables, incorrect volume paths, port conflicts
+
+---
+
+### Batch Recipe Addition (GDR Workflow)
+
+**When to use:** Adding multiple recipes from research batch  
+**Frequency:** Expansion phases
+
+**Steps:**
+1. **Research:** Use Google Deep Research to identify applications
+2. **Planning:** Map applications to cookbook-canonical categories
+3. **Directory Creation:** PowerShell one-liner for bulk structure:
+   ```powershell
+   @("app1","app2","app3") | ForEach-Object { New-Item -ItemType Directory -Path "category\$_" -Force }
+   ```
+4. **Batch Execution:** Process 6 recipes max per batch
+5. **Confirmation:** Verify completion between batches
+6. **Documentation:** Update category READMEs after all recipes complete
+
+**Expected Outcome:** Multiple recipes with consistent quality  
+**Critical:** Never exceed 6 items per batch to avoid timeouts
 
 ---
 
@@ -32,7 +49,7 @@
 
 **Steps:**
 1. Create category directory at repository root
-2. Create README.md following `docs/documentation-standards/interior-readme-template.md`
+2. Create README.md following interior README template
 3. Add category to root README.md category table
 4. Update architecture.md in memory bank
 5. Commit changes
@@ -59,6 +76,23 @@
 
 ---
 
+### README Synchronization
+
+**When to use:** After batch additions or structural changes  
+**Frequency:** After expansion phases
+
+**Steps:**
+1. List all directories in category to get actual recipe inventory
+2. Update category README with accurate recipe table
+3. Update recipe counts
+4. Change status from "Planned" to "Active" where applicable
+5. Process in batches of 6 READMEs to avoid timeouts
+
+**Expected Outcome:** All READMEs reflect actual repository contents  
+**Critical:** Do this AFTER all recipes are in place, not during
+
+---
+
 ## Memory Bank Maintenance
 
 ### Updating context.md
@@ -71,6 +105,7 @@
 4. Document any new decisions in "Recent Decisions"
 5. Add/resolve blockers as appropriate
 6. Update "Last Updated" date
+7. Update repository statistics if counts changed
 
 **Quality check:** Does context.md accurately reflect current state?
 
@@ -92,8 +127,8 @@
 **Objective:** Update memory bank with session outcomes
 
 1. Update context.md with accomplishments and next steps
-2. Update other memory bank files if architecture/tech changed
-3. Update scratch/session-checkpoint.md if using
+2. Update architecture.md if structure changed
+3. Update product.md if goals/metrics changed
 4. Commit memory bank changes
 
 ---
@@ -124,7 +159,7 @@ find . -name "docker-compose.yml" -exec docker compose -f {} config --quiet \;
 1. Check Docker Hub for new image versions
 2. Update image tag in docker-compose.yml
 3. Test deployment with new version
-4. Update UPGRADING.md with version notes
+4. Update README if significant changes
 5. Commit changes
 
 ---
@@ -148,8 +183,7 @@ Get-ChildItem -Recurse -Filter "README.md" | ForEach-Object {
 ### Recipe Quality Checklist
 - [ ] docker-compose.yml uses v2 syntax (no version key)
 - [ ] .env.example includes all variables with descriptions
-- [ ] README.md follows recipe template
-- [ ] docs/ folder has CONFIGURATION.md at minimum
+- [ ] README.md has metadata, description, quick start, configuration
 - [ ] Deploys successfully with `docker compose up -d`
 - [ ] Container stays running (check with `docker compose ps`)
 - [ ] Parent category README updated with recipe entry
@@ -160,6 +194,14 @@ Get-ChildItem -Recurse -Filter "README.md" | ForEach-Object {
 - [ ] Links to related documents work
 - [ ] Tree structure matches actual directory contents
 - [ ] Recipe table status indicators accurate
+- [ ] Recipe counts accurate
+
+### Batch Processing Checklist
+- [ ] Batch size ≤ 6 items
+- [ ] Directory structure created upfront
+- [ ] Confirmation checkpoint after each batch
+- [ ] Documentation sync scheduled for after completion
+- [ ] Worklog updated with methodology
 
 ### Commit Quality Checklist
 - [ ] Descriptive commit message

@@ -1,0 +1,33 @@
+# Mealie - Recipe Manager
+# https://mealie.io/
+
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v1.12.0
+    container_name: mealie
+    restart: unless-stopped
+    ports:
+      - "${MEALIE_PORT:-9925}:9000"
+    volumes:
+      - mealie-data:/app/data
+    environment:
+      - ALLOW_SIGNUP=${ALLOW_SIGNUP:-true}
+      - PUID=${PUID:-1000}
+      - PGID=${PGID:-1000}
+      - TZ=${TZ:-America/New_York}
+      - MAX_WORKERS=${MAX_WORKERS:-1}
+      - WEB_CONCURRENCY=${WEB_CONCURRENCY:-1}
+      # Optional: PostgreSQL backend (default is SQLite)
+      # - DB_ENGINE=postgres
+      # - POSTGRES_USER=mealie
+      # - POSTGRES_PASSWORD=${PG_PASSWORD}
+      # - POSTGRES_SERVER=db
+      # - POSTGRES_PORT=5432
+      # - POSTGRES_DB=mealie
+
+volumes:
+  mealie-data:
+
+networks:
+  default:
+    name: mealie_network

@@ -3,8 +3,8 @@
 title: "Graph Databases"
 description: "Databases optimized for storing and querying connected data"
 author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+date: "2025-01-04"
+version: "2.0"
 status: "Active"
 tags:
   - type: directory-readme
@@ -23,8 +23,8 @@ Databases designed for storing and querying highly connected data. Graph databas
 
 ```
 graph/
-├── neo4j/              # Neo4j graph database
-└── README.md           # This file
+├── neo4j/        # Neo4j graph database
+└── README.md     # This file
 ```
 
 ---
@@ -37,16 +37,38 @@ graph/
 
 ---
 
-## 3. Use Cases
-
-| Database | Best For |
-|----------|----------|
-| Neo4j | Social networks, fraud detection, recommendations, knowledge graphs, network analysis |
+## 3. Recipe Count: 1
 
 ---
 
-## 4. Related
+## 4. Use Cases
+
+| Use Case | Why Graph? |
+|----------|------------|
+| Social networks | Friend-of-friend queries in milliseconds |
+| Fraud detection | Pattern matching across transactions |
+| Recommendations | Collaborative filtering via relationships |
+| Knowledge graphs | Semantic relationships and inference |
+| Network analysis | Infrastructure dependencies, impact analysis |
+
+---
+
+## 5. Query Language
+
+Neo4j uses Cypher, a declarative graph query language:
+
+```cypher
+MATCH (user:Person)-[:FRIENDS_WITH]->(friend)-[:LIKES]->(movie:Movie)
+WHERE user.name = 'Alice'
+RETURN movie.title, count(friend) as recommendations
+ORDER BY recommendations DESC
+```
+
+---
+
+## 6. Related
 
 | Document | Relationship |
 |----------|--------------|
 | [databases/](../README.md) | Parent category |
+| [ai-ml/](../../ai-ml/README.md) | Knowledge graph applications |

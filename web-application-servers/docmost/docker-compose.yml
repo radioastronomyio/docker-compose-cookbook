@@ -1,0 +1,54 @@
+# Docmost - Collaborative Documentation Wiki
+# https://docmost.com/
+
+services:
+  docmost:
+    image: docmost/docmost:latest
+    container_name: docmost
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    environment:
+      APP_URL: ${APP_URL:-http://localhost:3000}
+      APP_SECRET: ${APP_SECRET}
+      DATABASE_URL: postgresql://docmost:${PG_PASSWORD}@db:5432/docmost?schema=public
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "${DOCMOST_PORT:-3000}:3000"
+    restart: unless-stopped
+    volumes:
+      - docmost_data:/app/data/storage
+
+  db:
+    image: postgres:16-alpine
+    container_name: docmost-db
+    environment:
+      POSTGRES_DB: docmost
+      POSTGRES_USER: docmost
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docmost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: docmost-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+volumes:
+  docmost_data:
+  db_data:
+  redis_data:
+
+networks:
+  default:
+    name: docmost_network

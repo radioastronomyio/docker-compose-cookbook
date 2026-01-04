@@ -1,0 +1,15 @@
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    container_name: duplicati
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ./duplicati_config:/config
+      - /mnt/docker_volumes:/source:ro  # Read-only access to source data
+      - ./backups:/backups  # Local destination (optional)
+    ports:
+      - "8200:8200"

@@ -1,0 +1,12 @@
+services:
+  pingvin-share:
+    image: stonith404/pingvin-share
+    container_name: pingvin-share
+    restart: unless-stopped
+    ports:
+      - "3004:3000"
+    volumes:
+      - ./pingvin_data:/opt/app/backend/data
+      - ./pingvin_images:/opt/app/frontend/public/img
+    environment:
+      - PINGVIN_APP_URL=${PINGVIN_URL}
