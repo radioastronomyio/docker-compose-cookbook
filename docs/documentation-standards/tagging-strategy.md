@@ -1,17 +1,17 @@
 <!--
 ---
 title: "Tagging Strategy"
-description: "Controlled vocabulary for document classification and RAG retrieval in docker-compose-cookbook"
-author: "VintageDon"
-date: "2025-01-02"
-version: "1.0"
+description: "Controlled vocabulary for document classification in docker-compose-cookbook"
+author: "VintageDon (https://github.com/vintagedon/)"
+date: "2026-03-29"
+version: "2.0"
 tags:
+  - type: guide
   - domain: documentation
-  - type: specification
 related_documents:
   - "[Interior README Template](interior-readme-template.md)"
   - "[General KB Template](general-kb-template.md)"
-  - "[Recipe README Template](recipe-readme-template.md)"
+  - "[Worklog README Template](worklog-readme-template.md)"
 ---
 -->
 
@@ -19,172 +19,138 @@ related_documents:
 
 ## 1. Purpose
 
-This document defines the controlled tag vocabulary for all documentation in docker-compose-cookbook, enabling consistent classification for human navigation and RAG system retrieval.
+Controlled tag vocabulary for the docker-compose-cookbook repository. Consistent tagging enables human navigation and RAG system retrieval.
 
 ---
 
-## 2. Scope
+## 2. Why Controlled Vocabulary
 
-Covers all tag categories, valid values, and usage guidance. Does not cover front-matter field structure—see individual templates for field requirements.
+Uncontrolled tagging leads to synonyms fragmenting search, inconsistent granularity, and tag proliferation that reduces signal. A controlled vocabulary defines allowed values upfront, ensuring consistency across contributors and time.
 
 ---
 
 ## 3. Tag Categories
 
-### Category Tags
-
-Primary organizational category. Usually one per document.
-
-| Tag | Description |
-|-----|-------------|
-| `databases` | Database deployments and management tools |
-| `networking` | VPNs, DNS, proxies, network infrastructure |
-| `monitoring-logging` | Observability, metrics, log aggregation |
-| `automation-orchestration` | Ansible, runbooks, workflow automation |
-| `development-ci-cd` | Git servers, CI/CD pipelines, dev tools |
-| `storage-solutions` | Object storage, file sync, backup |
-| `security` | Auth, secrets management, vulnerability scanning |
-| `container-management` | Container orchestration and management UIs |
-| `web-application-servers` | Reverse proxies, web servers, load balancers |
-| `messaging-collaboration` | Chat, email, team communication |
-| `home-automation` | Smart home, IoT platforms |
-| `media-entertainment` | Media servers, streaming, *arr stack |
-| `ai-ml` | LLM inference, ML tools, AI platforms |
-| `data-pipelines` | Workflow orchestration, ETL, data processing |
-
-**Usage**: Choose the primary category. A recipe for Grafana is `monitoring-logging`, not `databases` even if it uses a database.
+| Category | Question Answered | Required |
+|----------|-------------------|----------|
+| `type` | What kind of document is this? | Yes |
+| `domain` | What subject area? | Yes |
+| `status` | What's the lifecycle state? | Recommended |
+| `tech` | What technologies involved? | When applicable |
 
 ---
 
-### Subcategory Tags (Databases)
+## 4. Domain Tags
 
-Specific to the `databases` category.
-
-| Tag | Description |
-|-----|-------------|
-| `relational` | SQL databases (MySQL, PostgreSQL, MariaDB, SQLite) |
-| `document` | Document stores (MongoDB, CouchDB) |
-| `key-value` | Key-value stores (Redis, DragonFly, Memcached) |
-| `graph` | Graph databases (Neo4j) |
-| `timeseries` | Time series databases (InfluxDB, QuestDB) |
-| `vector` | Vector databases (Qdrant, Milvus, Weaviate, Chroma) |
-| `wide-column` | Wide-column stores (Cassandra) |
-| `management` | Database admin tools (phpMyAdmin, pgAdmin) |
-
-**Usage**: Tag database recipes with the appropriate subcategory.
-
----
-
-### Type Tags
-
-Document purpose and structure.
-
-| Tag | Description |
-|-----|-------------|
-| `directory-readme` | README for a directory (interior READMEs) |
-| `recipe` | Individual docker-compose recipe |
-| `guide` | Step-by-step procedures |
-| `reference` | Lookup information (data dictionary, schema) |
-| `specification` | Formal requirements or standards |
-| `worklog` | Work log milestone documentation |
-
-**Usage**: One type per document. Recipe READMEs get `recipe`, category READMEs get `directory-readme`.
+| Tag | Use For | Boundary |
+|-----|---------|----------|
+| `ai-ml` | LLM inference, chat UIs, image generation, RAG engines, data annotation | AI and machine learning recipes |
+| `automation` | Workflow engines, job schedulers, change detection, social media scheduling | Automation and orchestration recipes |
+| `containers` | Container management UIs, update tools, orchestration interfaces | Container management recipes, not the containers themselves |
+| `databases` | SQL, NoSQL, vector, graph, time series, wide-column, admin tools | Database recipes across all data models |
+| `development` | Git servers, CI/CD pipelines, code editors, dev tools | Development and CI/CD recipes |
+| `home-automation` | Smart home, IoT, NVR, home infrastructure | Home automation recipes |
+| `media` | Media servers, *Arr stack, photo management, audiobooks | Media and entertainment recipes |
+| `messaging` | Push notifications, newsletters, team communication | Messaging and collaboration recipes |
+| `monitoring` | Metrics, visualization, log aggregation, status pages, dashboards | Monitoring and logging recipes |
+| `networking` | VPNs, DNS, reverse proxies, ad blocking, remote access | Networking recipes |
+| `personal` | Knowledge management, productivity, finance, bookmarks, recipes | Personal utility recipes |
+| `security` | Authentication, SSO, password vaults, secrets management | Security recipes |
+| `storage` | File sync, backup, document management, file sharing | Storage solution recipes |
+| `web-apps` | CMS, no-code databases, invoicing, design tools, CRM | Web application server recipes |
+| `documentation` | Templates, standards, meta-content about the repo itself | Docs about docs |
+| `infrastructure` | Recipe structure, cross-cutting patterns, deployment guides | Repo-level infrastructure concerns |
 
 ---
 
-### Tech Tags
+## 5. Type Tags
 
-Technologies and services. Tag with specific services involved.
-
-| Tag | Description |
-|-----|-------------|
-| `docker` | Docker-related |
-| `compose` | Docker Compose specific |
-| `traefik` | Traefik reverse proxy |
-| `nginx` | Nginx web server |
-| `postgres` | PostgreSQL database |
-| `mysql` | MySQL database |
-| `redis` | Redis cache/store |
-| `prometheus` | Prometheus metrics |
-| `grafana` | Grafana dashboards |
-| `ollama` | Ollama LLM inference |
-
-**Usage**: Tag when the document is specific to that technology. Add tech tags as needed—this list is not exhaustive.
+| Tag | Use For |
+|-----|---------|
+| `project-root` | Repository root README |
+| `directory-readme` | Interior README for any directory |
+| `recipe` | Individual Docker Compose recipe documentation |
+| `category-readme` | Category-level README indexing recipes |
+| `worklog` | Work log entries and milestone documentation |
+| `guide` | Step-by-step procedures and how-to documents |
+| `reference` | Lookup information: compose patterns, environment variables |
 
 ---
 
-### Status Tags
-
-Document lifecycle status.
+## 6. Status Tags
 
 | Tag | Description |
 |-----|-------------|
-| `active` | Current, maintained |
-| `wip` | Work in progress |
-| `planned` | Placeholder, not yet implemented |
-| `deprecated` | No longer maintained |
+| `draft` | In development, not yet complete |
+| `active` | Current, maintained, tested |
+| `under-review` | Review in progress |
+| `deprecated` | Superseded, avoid for new deployments |
 | `archived` | Historical reference only |
 
-**Usage**: One status per document.
+---
+
+## 7. Tech Tags
+
+| Tag | Technology |
+|-----|-----------|
+| `docker` | Docker Engine |
+| `compose` | Docker Compose v2 |
+| `yaml` | Compose file format |
+| `bash` | Shell scripts |
+| `python` | Python scripts |
+| `postgresql` | PostgreSQL backends |
+| `mysql` | MySQL/MariaDB backends |
+| `sqlite` | SQLite backends |
+| `redis` | Redis backends |
+| `nvidia` | GPU-accelerated recipes (NVIDIA Container Toolkit) |
 
 ---
 
-### Audience Tags
+## 8. Implementation
 
-Target reader expertise level.
-
-| Tag | Description |
-|-----|-------------|
-| `beginners` | New to Docker/self-hosting |
-| `intermediate` | Comfortable with Docker, some ops experience |
-| `advanced` | Production experience, complex deployments |
-| `all` | Applicable to all skill levels |
-
-**Usage**: Tag when audience-specific content exists.
-
----
-
-## 4. Examples
-
-### Recipe README
+### Standard Frontmatter
 
 ```yaml
+<!--
+---
+title: "Document Title"
+description: "What this document covers"
+author: "VintageDon (https://github.com/vintagedon/)"
+date: "YYYY-MM-DD"
+version: "1.0"
+status: "Active"
 tags:
   - type: recipe
-  - category: databases
-  - subcategory: relational
-  - tech: [postgres, docker, compose]
-  - status: active
+  - domain: databases
+  - tech: [docker, compose, postgresql]
+related_documents:
+  - "[Related Doc](path/to/doc.md)"
+---
+-->
 ```
 
-### Category README
+### Conventions
 
-```yaml
-tags:
-  - type: directory-readme
-  - category: monitoring-logging
-  - status: active
-```
-
-### Guide Document
-
-```yaml
-tags:
-  - type: guide
-  - category: networking
-  - tech: [traefik, docker]
-  - audience: intermediate
-  - status: active
-```
+- Use lowercase, hyphenated values
+- Tech tags use canonical names
+- One value per line for readability, or array syntax for multi-value
+- `related_documents` links use relative paths within the repo
 
 ---
 
-## 5. References
+## 9. Maintaining the Vocabulary
 
-| Reference | Link |
-|-----------|------|
-| Interior README Template | [interior-readme-template.md](interior-readme-template.md) |
-| Recipe README Template | [recipe-readme-template.md](recipe-readme-template.md) |
-| General KB Template | [general-kb-template.md](general-kb-template.md) |
+- This document is the authoritative source for allowed tag values
+- Prefer broader tags over proliferating specific ones
+- Check for existing coverage before adding new tags
+- Backfill existing documents when adding new tags
 
 ---
+
+## 10. References
+
+| Resource | Description |
+|----------|-------------|
+| [Interior README Template](interior-readme-template.md) | Shows tag usage in directory READMEs |
+| [General KB Template](general-kb-template.md) | Shows tag usage for standalone docs |
+| [Worklog README Template](worklog-readme-template.md) | Shows tag usage for work log entries |

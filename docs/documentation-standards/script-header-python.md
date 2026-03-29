@@ -1,8 +1,8 @@
 # Python Script Header Template
 
-> Template Version: 1.0  
-> Applies To: All `.py` files in docker-compose-cookbook  
-> Last Updated: 2025-01-02
+> Template Version: 2.0
+> Applies To: All `.py` files
+> Last Updated: 2026-03-29
 
 ---
 
@@ -14,7 +14,7 @@
 Script Name  : script_name.py
 Description  : [One-line description of what the script does]
 Repository   : docker-compose-cookbook
-Author       : VintageDon (https://github.com/vintagedon)
+Author       : VintageDon (https://github.com/vintagedon/)
 Created      : YYYY-MM-DD
 Link         : https://github.com/radioastronomyio/docker-compose-cookbook
 
@@ -108,17 +108,17 @@ Standard sections (in order):
 Use NumPy-style docstrings for functions:
 
 ```python
-def validate_compose_file(
-    compose_path: Path,
+def validate_file(
+    file_path: Path,
     strict: bool = False
 ) -> dict:
     """
-    Validate a docker-compose.yml file.
+    Validate a configuration file.
 
     Parameters
     ----------
-    compose_path : Path
-        Path to the docker-compose.yml file.
+    file_path : Path
+        Path to the file.
     strict : bool, optional
         Enable strict validation mode. Default is False.
 
@@ -130,7 +130,7 @@ def validate_compose_file(
     Raises
     ------
     FileNotFoundError
-        If compose file does not exist.
+        If file does not exist.
     """
     pass
 ```
@@ -146,3 +146,4 @@ def validate_compose_file(
 - Use `pathlib.Path` instead of string paths
 - Use type hints for all function parameters and return values
 - Follow PEP 8 style guide
+- See [code-commenting-dual-audience.md](code-commenting-dual-audience.md) for AI NOTE conventions

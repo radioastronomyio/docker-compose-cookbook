@@ -1,8 +1,8 @@
 # Shell Script Header Template
 
-> Template Version: 1.0  
-> Applies To: All `.sh` files in docker-compose-cookbook  
-> Last Updated: 2025-01-02
+> Template Version: 2.0
+> Applies To: All `.sh` files
+> Last Updated: 2026-03-29
 
 ---
 
@@ -14,7 +14,7 @@
 # Script Name  : script-name.sh
 # Description  : [One-line description of what the script does]
 # Repository   : docker-compose-cookbook
-# Author       : VintageDon (https://github.com/vintagedon)
+# Author       : VintageDon (https://github.com/vintagedon/)
 # Created      : YYYY-MM-DD
 # Link         : https://github.com/radioastronomyio/docker-compose-cookbook
 # =============================================================================
@@ -123,6 +123,7 @@ export DATA_ROOT="/var/lib/data"
 
 - Always use `#!/usr/bin/env bash` for portability
 - `set -euo pipefail` catches common errors early
-- Use `main()` function pattern even for simple scripts — it's easier to extend
+- Use `main()` function pattern even for simple scripts
 - Keep Description line under 80 characters
 - Use present tense, active voice ("Initializes..." not "This script initializes...")
+- See [code-commenting-dual-audience.md](code-commenting-dual-audience.md) for AI NOTE conventions

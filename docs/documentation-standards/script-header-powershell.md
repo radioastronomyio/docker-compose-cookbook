@@ -1,8 +1,8 @@
 # PowerShell Script Header Template
 
-> Template Version: 1.0  
-> Applies To: All `.ps1` files in docker-compose-cookbook  
-> Last Updated: 2025-01-02
+> Template Version: 2.0
+> Applies To: All `.ps1` files
+> Last Updated: 2026-03-29
 
 ---
 
@@ -19,7 +19,7 @@
 
 .NOTES
     Repository  : docker-compose-cookbook
-    Author      : VintageDon (https://github.com/vintagedon)
+    Author      : VintageDon (https://github.com/vintagedon/)
     Created     : YYYY-MM-DD
 
 .EXAMPLE
@@ -93,21 +93,21 @@ Standard sections (in order):
 ```powershell
 <#
 .SYNOPSIS
-    Validates docker-compose files across all recipe directories.
+    Validates configuration files across all subdirectories.
 
 .DESCRIPTION
-    Scans all recipe directories and validates that each docker-compose.yml
-    file is syntactically correct. Outputs a summary of validation results.
+    Scans all subdirectories and validates that each config file
+    is syntactically correct. Outputs a summary of validation results.
 
 .NOTES
     Repository  : docker-compose-cookbook
-    Author      : VintageDon (https://github.com/vintagedon)
-    Created     : 2025-01-02
+    Author      : VintageDon (https://github.com/vintagedon/)
+    Created     : YYYY-MM-DD
 
 .EXAMPLE
-    .\validate-compose-files.ps1
+    .\validate-configs.ps1
 
-    Validates all docker-compose.yml files in the repository.
+    Validates all configuration files in the repository.
 
 .LINK
     https://github.com/radioastronomyio/docker-compose-cookbook
@@ -123,9 +123,9 @@ $RepoRoot = Split-Path -Parent $PSScriptRoot
 # Execution
 # =============================================================================
 
-Get-ChildItem -Path $RepoRoot -Recurse -Filter "docker-compose.yml" | ForEach-Object {
+Get-ChildItem -Path $RepoRoot -Recurse -Filter "*.config" | ForEach-Object {
     Write-Host "Validating: $($_.FullName)"
-    docker compose -f $_.FullName config --quiet
+    # Validation logic here
 }
 ```
 
@@ -136,3 +136,4 @@ Get-ChildItem -Path $RepoRoot -Recurse -Filter "docker-compose.yml" | ForEach-Ob
 - PowerShell comment-based help (`.SYNOPSIS`, `.DESCRIPTION`, etc.) enables `Get-Help script-name.ps1`
 - Keep `.SYNOPSIS` under 80 characters
 - Use present tense, active voice ("Validates..." not "This script validates...")
+- See [code-commenting-dual-audience.md](code-commenting-dual-audience.md) for AI NOTE conventions

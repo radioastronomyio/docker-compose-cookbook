@@ -2,15 +2,14 @@
 ---
 title: "[Document Title]"
 description: "What this document covers"
-author: "VintageDon"
+author: "VintageDon (https://github.com/vintagedon/)"
 date: "YYYY-MM-DD"
 version: "1.0"
 status: "Draft|Active|Archived"
 tags:
-  - type: [guide/reference/specification/report]
-  - category: [databases/networking/monitoring-logging/automation-orchestration/development-ci-cd/storage-solutions/security/container-management/web-application-servers/messaging-collaboration/home-automation/media-entertainment/ai-ml/data-pipelines]
-  - tech: [docker/compose/traefik/nginx/postgres/etc]
-  - audience: [beginners/intermediate/advanced/all]
+  - type: [guide/reference/specification/report/runbook/policy/procedure]
+  - domain: [see tagging-strategy.md for allowed values]
+  - tech: [relevant-technologies]
 related_documents:
   - "[Related Doc](path/to/doc.md)"
 ---
@@ -74,9 +73,10 @@ What's covered:
 <!--
 TEMPLATE USAGE NOTES (remove when using):
 
-1. FRONTMATTER: Always include. Tags enable RAG retrieval.
+1. FRONTMATTER: Always include. Tags must use values from
+   docs/documentation-standards/tagging-strategy.md.
 
-2. SEMANTIC NUMBERING: 
+2. SEMANTIC NUMBERING:
    - Sections 1-3 (Purpose/Scope/Audience) are the wrapper
    - Section 4+ is your content
    - If you omit wrapper sections, preserve numbering gaps

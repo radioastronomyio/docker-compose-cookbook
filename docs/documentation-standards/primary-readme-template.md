@@ -2,7 +2,7 @@
 ---
 title: "[Project Name]"
 description: "One-line description"
-author: "VintageDon"
+author: "VintageDon (https://github.com/vintagedon/)"
 date: "YYYY-MM-DD"
 version: "1.0"
 status: "Active"
@@ -15,188 +15,103 @@ related_documents:
 ---
 -->
 
-# 🎯 [Project Name]
+# [Project Name]
 
-![Repository Banner](assets/repo-banner.jpg)
-
-<!-- BADGES: Select relevant badges for your project -->
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
-<!-- Add technology badges as appropriate -->
 
 > One-line description that captures the essence of the project.
 
-[2-3 sentences expanding on what this project is, what it does, and why it exists. This is your elevator pitch.]
+[2-3 sentences expanding on what this project is, what it does, and why it exists.]
 
 ---
 
-## 🔭 Background
+## Overview
 
-<!-- Include an infographic image if available -->
-![Background Infographic](assets/background-infographic.png)
-
-[2-4 paragraphs explaining the context, problem space, and motivation for this project. What gap does it fill? What inspired it?]
+[2-4 paragraphs explaining the context, problem space, and motivation. What gap does it fill? Include domain-specific background that newcomers need.]
 
 ---
 
-## 🎯 Target Audience
+## Project Status
 
-| Audience | Use Case |
-|----------|----------|
-| [Audience 1] | [How they use this] |
-| [Audience 2] | [How they use this] |
-| [Audience 3] | [How they use this] |
-
----
-
-## 🏗️ Architecture
-
-<!-- High-level architecture description -->
-
-[Brief explanation of how the project is organized and why]
-
-### [Key Component 1]
-
-[Description]
-
-### [Key Component 2]
-
-[Description]
+| Area | Status | Description |
+|------|--------|-------------|
+| [Area 1] | ✅ Complete | [Description] |
+| [Area 2] | 🔄 In Progress | [Description] |
+| [Area 3] | ⬜ Planned | [Description] |
 
 ---
 
-## 📁 Repository Structure
+## Architecture
 
-```
-project-name/
-├── directory-1/          # Purpose
-├── directory-2/          # Purpose
-│   └── subdirectory/     # Purpose
-├── docs/                 # Documentation
+[Brief explanation of how the project is organized and why.]
+
+| Component | Implementation | Purpose |
+|-----------|----------------|---------|
+| [Component] | [Technology] | [What it does] |
+
+---
+
+## Repository Structure
+
+```markdown
+<repo-name>/
+├── docs/              # Documentation
+├── internal-files/    # Reference docs (gitignored in public repos)
+├── shared/            # Cross-cutting utilities
+├── spec/              # Specifications (gitignored in public repos)
+├── staging/           # Pre-commit staging
+├── work-logs/         # Development history
+├── AGENTS.md          # Agent context loading
 ├── LICENSE
-└── README.md             # This file
+└── README.md          # This file
 ```
 
 ---
 
-## 🔧 Technology Stack
-
-| Category | Technology | Purpose |
-|----------|------------|---------|
-| [Category] | [Tech] | [Why used] |
-| [Category] | [Tech] | [Why used] |
-
----
-
-## 🚀 Quick Start
+## Getting Started
 
 ```bash
-# Step 1
-command
-
-# Step 2
-command
-
-# Step 3
-command
+# Setup steps
+command-1
+command-2
 ```
 
 ---
 
-## 📋 Implementation Phases
+## License
 
-<!-- Include if project has distinct phases; remove if not applicable -->
-
-| Phase | Name | Status | Description |
-|-------|------|--------|-------------|
-| 01 | [Phase Name] | ✅ Complete | [Description] |
-| 02 | [Phase Name] | 🔄 In Progress | [Description] |
-| 03 | [Phase Name] | ⬜ Planned | [Description] |
+- **Code**: [MIT License](LICENSE)
+- **Data/Content**: [CC-BY-4.0](LICENSE-DATA)
 
 ---
 
-## 🤝 OSS Program Support
-
-This repository benefits from open source programs that provide tooling to qualifying public repositories.
-
-### Active Programs
-
-| Program | Provides | Use Case |
-|---------|----------|----------|
-| [Greptile](https://greptile.com) | AI code review | PR review, codebase Q&A |
-| [Atlassian](https://www.atlassian.com/software/views/open-source-license-request) | Jira, Confluence (Standard) | Project tracking, documentation |
-
-### Available for Future Use
-
-| Program | Provides | Planned Use |
-|---------|----------|-------------|
-| [Snyk](https://snyk.io/plans/) | Security scanning | Dependency vulnerability detection |
-| [SonarCloud](https://www.sonarsource.com/open-source-editions/) | Code quality | Static analysis |
-| [Sentry](https://sentry.io/for/open-source/) | Error tracking | Runtime monitoring |
-| [Datadog](https://www.datadoghq.com/partner/open-source/) | Observability | Metrics, logs, APM |
-
----
-
-## 🌟 Open Science Philosophy
-
-We practice open science and open methodology — our version of "showing your work":
-
-- **Research methodologies** are fully documented and repeatable
-- **Infrastructure configurations** are version-controlled and automated
-- **Scripts and pipelines** are published so others can learn, adapt, or improve them
-- **Learning processes** are captured and shared for community benefit
-
-Our hope is that these materials help someone facing similar challenges, or inspire collaboration that helps us. All projects operate under open source licenses (primarily MIT) to ensure maximum reproducibility.
-
----
-
-## 📄 License
-
-[MIT](LICENSE) © 2025 VintageDon
-
----
-
-## 🙏 Acknowledgments
-
-- [Acknowledgment 1]
-- [Acknowledgment 2]
-- [RadioAstronomy.io](https://github.com/radioastronomyio) — Research organization
-
----
-
-Last Updated: [Date] | [Current status or phase]
+Last Updated: [Date] | Status: [Current Status]
 
 <!--
-TEMPLATE USAGE NOTES (remove when using):
+=============================================================================
+TEMPLATE USAGE NOTES (remove this entire block when using)
+=============================================================================
 
-1. FRONTMATTER: Always include with appropriate tags
+REQUIRED SECTIONS:
+1. Frontmatter (YAML in comment block — tags per tagging-strategy.md)
+2. Title + license badge
+3. Blockquote tagline + intro
+4. Overview
+5. Project Status table
+6. Architecture
+7. Repository Structure tree
+8. Getting Started
+9. License
+10. Last Updated footer
 
-2. REQUIRED SECTIONS:
-   - Title with emoji
-   - Banner image (assets/repo-banner.jpg)
-   - Badges (at minimum: License)
-   - One-line blockquote description
-   - Background (with infographic if available)
-   - Target Audience table
-   - Repository Structure tree
-   - Quick Start
-   - OSS Program Support
-   - Open Science Philosophy
-   - License
-   - Acknowledgments
-   - Last Updated footer
+OPTIONAL SECTIONS (add as needed):
+- Target Audience table
+- Domain-Specific Section (customize for project type)
+- Related Work / Active Projects
+- Acknowledgments
 
-3. OPTIONAL SECTIONS:
-   - Architecture (for complex projects)
-   - Technology Stack (if multiple technologies)
-   - Implementation Phases (if phased development)
+REPO URL PATTERN:
+  https://github.com/radioastronomyio/<repo-name>
 
-4. IMAGES:
-   - assets/repo-banner.jpg — Required, wide format for top of README
-   - assets/background-infographic.png — Recommended for Background section
-
-5. KEEP IT SCANNABLE:
-   - Use tables for structured data
-   - Use code blocks for commands
-   - Keep paragraphs short
-   - Use emoji for visual hierarchy in headers
+=============================================================================
 -->

@@ -3,8 +3,8 @@
 title: "Docker Compose Cookbook"
 description: "Curated Docker Compose configurations for self-hosted services"
 author: "VintageDon"
-date: "2025-01-04"
-version: "3.1"
+date: "2026-03-29"
+version: "3.2"
 status: "Active"
 tags:
   - type: project-root
@@ -33,16 +33,16 @@ This cookbook provides copy-and-deploy Docker Compose configurations for common 
 
 ## 🔭 Background
 
-![alt text](assets/docker-compose-cookbook-primary-infographic.jpg)
+![Docker Compose Cookbook Infographic](assets/docker-compose-cookbook-primary-infographic.jpg)
 
 Self-hosting services requires researching Docker configurations, understanding environment variables, and troubleshooting deployment issues. This friction slows adoption and leads to inconsistent setups across environments.
 
 The Docker Compose Cookbook addresses this by providing:
 
-- Standardized recipes — Every recipe follows the same structure, so once you've used one, you understand them all
-- Comprehensive documentation — Each recipe includes configuration guides, security considerations, and troubleshooting help
-- Sensible defaults — Configurations work out of the box while remaining customizable
-- Category organization — Services grouped by function for easy discovery
+- Standardized recipes: every recipe follows the same structure, so once you've used one, you understand them all
+- Comprehensive documentation: each recipe includes configuration guides, security considerations, and troubleshooting help
+- Sensible defaults: configurations work out of the box while remaining customizable
+- Category organization: services grouped by function for easy discovery
 
 ---
 
@@ -393,7 +393,7 @@ This repository benefits from open source programs that provide tooling to quali
 
 ## 🌟 Open Science Philosophy
 
-We practice open science and open methodology — our version of "showing your work":
+We practice open science and open methodology, our version of "showing your work":
 
 - Research methodologies are fully documented and repeatable
 - Infrastructure configurations are version-controlled and automated
@@ -425,11 +425,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ## 🙏 Acknowledgments
 
-- [Docker](https://www.docker.com/) — Container platform
-- [LinuxServer.io](https://www.linuxserver.io/) — Well-maintained Docker images
-- [Awesome-Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) — Self-hosting inspiration
-- [RadioAstronomy.io](https://github.com/radioastronomyio) — Research organization
+- [Docker](https://www.docker.com/) for the container platform
+- [LinuxServer.io](https://www.linuxserver.io/) for well-maintained Docker images
+- [Awesome-Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted) for self-hosting inspiration
+- [RadioAstronomy.io](https://github.com/radioastronomyio) research organization
 
 ---
 
-Last Updated: January 4, 2025 | 100+ Active Recipes | 14 Categories
+Last Updated: 2026-03-29 | 100+ Active Recipes | 14 Categories
